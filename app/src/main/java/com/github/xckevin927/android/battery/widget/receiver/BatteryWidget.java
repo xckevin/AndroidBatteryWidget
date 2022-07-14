@@ -47,9 +47,6 @@ public class BatteryWidget extends AppWidgetProvider {
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.YELLOW);
 
-        Path path = new Path();
-        canvas.drawPa
-
         RectF rect = new RectF(strokeWidth + lightningHeight,
                 strokeWidth + lightningHeight,
                 width - strokeWidth - lightningHeight,
