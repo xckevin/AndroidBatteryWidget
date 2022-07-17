@@ -1,17 +1,31 @@
 package com.github.xckevin927.android.battery.widget.activity;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
 import com.github.xckevin927.android.battery.widget.service.WidgetUpdateService;
+import com.github.xckevin927.android.battery.widget.utils.BatteryUtil;
+import com.github.xckevin927.android.battery.widget.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +35,48 @@ public class MainActivity extends AppCompatActivity {
         WidgetUpdateService.start(getApplicationContext());
 
         setContentView(R.layout.activity_main);
+
+        initViews();
+    }
+
+    private void initViews() {
+        requestRenderWallpaper();
+        setUpBatteryContent();
+        renderBatteryWidget();
+
         findViewById(R.id.add_widget).setOnClickListener(v -> requestToPinWidget());
+    }
+
+    private void setUpBatteryContent() {
+        int width =  Utils.getScreenWidth(this) / 2;
+        View view = findViewById(R.id.battery_container);
+        view.setLayoutParams(new ViewGroup.LayoutParams(width, width));
+    }
+
+    private void requestRenderWallpaper() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    renderWallpaper();
+                }
+            }).launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+        } else {
+            renderWallpaper();
+        }
+    }
+
+    private void renderWallpaper() {
+        WallpaperManager wallpaperManager = (WallpaperManager) getSystemService(WALLPAPER_SERVICE);
+        @SuppressLint("MissingPermission")
+        Drawable drawable = wallpaperManager.getFastDrawable();
+        findViewById(R.id.id_container_activity_main).setBackground(drawable);
+    }
+
+    private void renderBatteryWidget() {
+        Bitmap bitmap = Utils.generateBatteryBitmap(this, BatteryUtil.getBatteryState(this));
+        ImageView imageView = findViewById(R.id.appwidget_progress);
+        imageView.setImageBitmap(bitmap);
     }
 
     private void requestToPinWidget(){
