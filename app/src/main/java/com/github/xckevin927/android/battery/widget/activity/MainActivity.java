@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Size;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpBatteryContent() {
-        int width =  Utils.getScreenWidth(this) / 2;
+        Size size =  Utils.getScreenWidth(this);
+        int width = Math.min(size.getWidth(), size.getHeight()) / 2;
         View view = findViewById(R.id.battery_container);
         view.setLayoutParams(new ViewGroup.LayoutParams(width, width));
     }

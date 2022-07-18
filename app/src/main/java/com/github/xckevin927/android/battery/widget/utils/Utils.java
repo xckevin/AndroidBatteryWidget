@@ -6,21 +6,27 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
+import android.util.Size;
+import android.view.Display;
 import android.view.WindowManager;
 
 import com.github.xckevin927.android.battery.widget.R;
 
 public class Utils {
 
-    public static int getScreenWidth(Context context) {
+    public static Size getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            return wm.getCurrentWindowMetrics().getBounds().width();
+            Rect rect = wm.getCurrentWindowMetrics().getBounds();
+            return new Size(rect.width(), rect.height());
+
         } else {
-            return wm.getDefaultDisplay().getWidth();
+            Display display = wm.getDefaultDisplay();
+            return new Size(display.getWidth(), display.getHeight());
         }
     }
 
