@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             if (appWidgetManager.isRequestPinAppWidgetSupported()) {
                 Intent pinnedWidgetCallbackIntent = new Intent(this, MainActivity.class);
                 PendingIntent successCallback = PendingIntent.getBroadcast(this, 0,
-                        pinnedWidgetCallbackIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        pinnedWidgetCallbackIntent, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
                 appWidgetManager.requestPinAppWidget(myProvider, null, successCallback);
             }
         } else {
