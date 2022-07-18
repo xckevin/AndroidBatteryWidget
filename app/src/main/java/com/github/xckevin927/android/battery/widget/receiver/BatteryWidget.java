@@ -4,16 +4,13 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RectF;
-import android.os.BatteryManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.github.xckevin927.android.battery.widget.PhoneBatteryState;
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.activity.BatteryWidgetConfigureActivity;
 import com.github.xckevin927.android.battery.widget.service.WidgetUpdateService;
@@ -31,7 +28,7 @@ public class BatteryWidget extends AppWidgetProvider {
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                        int appWidgetId) {
 
-        BatteryUtil.BatteryState batteryState = BatteryUtil.getBatteryState(context);
+        PhoneBatteryState batteryState = BatteryUtil.getBatteryState(context);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.battery_widget);
 

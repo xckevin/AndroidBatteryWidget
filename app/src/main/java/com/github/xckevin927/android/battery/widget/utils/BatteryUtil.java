@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.os.PowerManager;
+
+import com.github.xckevin927.android.battery.widget.PhoneBatteryState;
 
 public class BatteryUtil {
 
-    public static BatteryState getBatteryState(Context context) {
+    public static PhoneBatteryState getBatteryState(Context context) {
         Intent batteryStatus = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         // Are we charging / charged?
@@ -25,33 +28,16 @@ public class BatteryUtil {
 
         float batteryPct = level * 100 / (float)scale;
 
-        return new BatteryState(usbCharge, acCharge, (int) batteryPct);
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
+        return PhoneBatteryState.builder()
+                .withAcCharge(acCharge)
+                .withUsbCharge(usbCharge)
+                .withLevel((int) batteryPct)
+                .withPowerSaveMode(powerManager.isPowerSaveMode())
+                .build();
 
 //        int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
 //        return plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
-    }
-
-    public static class BatteryState {
-        private boolean isUsbCharge;
-        private boolean isAcCharge;
-        private int level;
-
-        public BatteryState(boolean isUsbCharge, boolean isAcCharge, int level) {
-            this.isUsbCharge = isUsbCharge;
-            this.isAcCharge = isAcCharge;
-            this.level = level;
-        }
-
-        public boolean isUsbCharge() {
-            return isUsbCharge;
-        }
-
-        public boolean isAcCharge() {
-            return isAcCharge;
-        }
-
-        public int getLevel() {
-            return level;
-        }
     }
 }

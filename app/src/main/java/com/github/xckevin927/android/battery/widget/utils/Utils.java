@@ -13,6 +13,7 @@ import android.util.Size;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.github.xckevin927.android.battery.widget.PhoneBatteryState;
 import com.github.xckevin927.android.battery.widget.R;
 
 public class Utils {
@@ -30,7 +31,7 @@ public class Utils {
         }
     }
 
-    public static Bitmap generateBatteryBitmap(Context context, BatteryUtil.BatteryState batteryState) {
+    public static Bitmap generateBatteryBitmap(Context context, PhoneBatteryState batteryState) {
         final int width = 800;
         final int height = 800;
         final int strokeWidth = 6;
@@ -56,7 +57,11 @@ public class Utils {
 
 
         int battery = batteryState.getLevel();
-        if (isCharging || battery >= 20) {
+        if (isCharging) {
+            paint.setColor(Color.parseColor("#19bd3e"));
+        } else if (batteryState.isInPowerSaveMode()) {
+            paint.setColor(Color.parseColor("#fdf35f"));
+        } else if (battery >= 20) {
             paint.setColor(Color.parseColor("#19bd3e"));
         } else if (battery >= 5) {
             paint.setColor(Color.parseColor("#fdf35f"));
