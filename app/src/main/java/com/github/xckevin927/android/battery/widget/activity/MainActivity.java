@@ -3,6 +3,7 @@ package com.github.xckevin927.android.battery.widget.activity;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -52,7 +53,11 @@ public class MainActivity extends AppCompatActivity {
         Size size =  Utils.getScreenWidth(this);
         int width = Math.min(size.getWidth(), size.getHeight()) / 2;
         View view = findViewById(R.id.battery_container);
-        view.setLayoutParams(new ViewGroup.LayoutParams(width, width));
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(width, width);
+        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+        view.setLayoutParams(layoutParams);
     }
 
     private void requestRenderWallpaper() {
