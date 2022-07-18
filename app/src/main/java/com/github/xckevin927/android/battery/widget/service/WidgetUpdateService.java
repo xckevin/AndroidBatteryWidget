@@ -31,7 +31,7 @@ public class WidgetUpdateService extends Service {
     private static final String TAG = "WidgetUpdateService";
 
     private static final int ALARM_DURATION = 5 * 60 * 1000; // service 自启间隔
-    private static final int UPDATE_DURATION = 10 * 1000;     // Widget 更新间隔
+    private static final int UPDATE_DURATION = 1 * 60 * 1000;     // Widget 更新间隔
     private static final int UPDATE_MESSAGE = 1000;
 
     private static boolean isServiceAlive = false;
@@ -41,9 +41,6 @@ public class WidgetUpdateService extends Service {
     private BatteryChangeReceiver batteryChangeReceiver;
 
     public static void start(Context context) {
-        if (isServiceAlive) {
-            return;
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.bindService(new Intent(context, WidgetUpdateService.class), new ServiceConnection() {
                 @Override
@@ -72,42 +69,53 @@ public class WidgetUpdateService extends Service {
         batteryChangeReceiver = new BatteryChangeReceiver();
         registerReceiver(batteryChangeReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
+        ensureServiceAlive();
         isServiceAlive = true;
         Log.e(TAG, "onCreate: ");
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    private void ensureServiceAlive() {
+        // 每个 ALARM_DURATION 自启一次
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(getBaseContext(), WidgetUpdateService.class);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getService(getBaseContext(), 3077,
+                    alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getService(getBaseContext(), 3077,
+                    alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + ALARM_DURATION, ALARM_DURATION, pendingIntent);
     }
 
     private void postMessage() {
         if (updateHandler == null) {
             return;
         }
+        updateHandler.removeMessages(UPDATE_MESSAGE);
         Message message = updateHandler.obtainMessage();
         message.what = UPDATE_MESSAGE;
         updateHandler.sendMessageDelayed(message, UPDATE_DURATION);
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // 每个 ALARM_DURATION 自启一次
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent alarmIntent = new Intent(getBaseContext(), WidgetUpdateService.class);
-        PendingIntent pendingIntent;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getService(getBaseContext(), 0,
-                    alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
-        } else {
-            pendingIntent = PendingIntent.getService(getBaseContext(), 0,
-                    alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-
-        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + ALARM_DURATION, pendingIntent);
-
+        updateWidget();
+        postMessage();
         return START_STICKY;
     }
 
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        ensureServiceAlive();
+    }
+
     private void updateWidget() {
-        Log.e(TAG, "updateWidget: ");
+        Log.i(TAG, "updateWidget");
         // 更新 Widget
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
 //        appWidgetManager.updateAppWidget(new ComponentName(getApplicationContext(), MyWidgetProvider.class), remoteViews);
@@ -145,12 +153,8 @@ public class WidgetUpdateService extends Service {
 
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case UPDATE_MESSAGE:
-                    updateWidget();
-                    break;
-                default:
-                    break;
+            if (msg.what == UPDATE_MESSAGE) {
+                updateWidget();
             }
         }
     }
