@@ -1,7 +1,8 @@
 # AndroidBatteryWidget
-ð Battery Widget on Android Launcher, small but beautiful and powerful
+![Battery Widget App Icon](https://raw.githubusercontent.com/xckevin/AndroidBatteryWidget/master/app/src/main/res/mipmap-mhdpi/ic_app.png "App Icon")
 
-![Battery Widget App Icon](https://raw.githubusercontent.com/xckevin/AndroidBatteryWidget/master/app/src/main/res/mipmap-xhdpi/ic_app.png "App Icon")
+🏆 Battery Widget on Android Launcher, small but beautiful and powerful
+
 
 ## preview
 
