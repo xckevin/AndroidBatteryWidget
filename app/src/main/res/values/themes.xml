@@ -27,7 +27,7 @@
 
     <style name="Theme.AndroidBatteryWidget.AppWidgetContainer" parent="Theme.AndroidBatteryWidget.AppWidgetContainerParent">
         <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
-        <item name="appWidgetPadding">16dp</item>
+        <item name="appWidgetPadding">2dp</item>
         <item name="android:background">@android:color/transparent</item>
 
     </style>
