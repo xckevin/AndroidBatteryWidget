@@ -1,13 +1,13 @@
 # AndroidBatteryWidget
 ð Battery Widget on Android Launcher, small but beautiful and powerful
 
-[Battery Widget App Icon](https://raw.githubusercontent.com/xckevin/AndroidBatteryWidget/master/app/src/main/res/mipmap-xxxhdpi/ic_app.png)
+![Battery Widget App Icon](https://raw.githubusercontent.com/xckevin/AndroidBatteryWidget/master/app/src/main/res/mipmap-xxxhdpi/ic_app.png "App Icon")
 
 ## preview
 
 It should look like this
 
-[Battery Widget Preview Image](https://raw.githubusercontent.com/xckevin/AndroidBatteryWidget/master/app/src/main/res/drawable-nodpi/single_widget_preview.png)
+![Battery Widget Preview Image](https://raw.githubusercontent.com/xckevin/AndroidBatteryWidget/master/app/src/main/res/drawable-nodpi/single_widget_preview.png "Preview")
 
 or you can find it in Google Play
 ## Build
