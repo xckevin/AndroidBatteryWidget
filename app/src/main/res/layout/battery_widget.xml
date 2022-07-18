@@ -20,6 +20,7 @@
             android:id="@+id/appwidget_progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:src="@drawable/single_widget_preview"
             android:scaleType="centerInside" />
     </RelativeLayout>
 
