@@ -36,8 +36,9 @@ public class Utils {
         final int height = 800;
         final int strokeWidth = 6;
 
-        final Bitmap lightning = BitmapFactory.decodeResource(context.getResources(), R.drawable.lightning);
-        final int lightningHeight = lightning.getHeight();
+        final Bitmap indicatorIcon = BitmapFactory.decodeResource(context.getResources(),
+                batteryState.isInPowerSaveMode() ? R.drawable.battery_saver : R.drawable.lightning);
+        final int indicatorIconHeight = indicatorIcon.getHeight();
 
         Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(b);
@@ -52,10 +53,10 @@ public class Utils {
         float radius = context.getResources().getDisplayMetrics().density * 16;
         canvas.drawRoundRect(0, 0, width, height, radius, radius, paint);
 
-        RectF rect = new RectF(strokeWidth + lightningHeight/2F,
-                strokeWidth + lightningHeight/2F,
-                width - strokeWidth - lightningHeight/2F,
-                height - strokeWidth - lightningHeight/2F);
+        RectF rect = new RectF(strokeWidth + indicatorIconHeight/2F,
+                strokeWidth + indicatorIconHeight/2F,
+                width - strokeWidth - indicatorIconHeight/2F,
+                height - strokeWidth - indicatorIconHeight/2F);
 
         final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge();
 
@@ -76,8 +77,8 @@ public class Utils {
 
         canvas.drawArc(rect, -90F, 360F * battery / 100F, false, paint);
 
-        if (isCharging) {
-            canvas.drawBitmap(lightning, width / 2F - lightning.getWidth() / 2F, 0, paint);
+        if (isCharging || batteryState.isInPowerSaveMode()) {
+            canvas.drawBitmap(indicatorIcon, width / 2F - indicatorIcon.getWidth() / 2F, 0, paint);
         }
 
 //        paint.setColor(Color.YELLOW);
