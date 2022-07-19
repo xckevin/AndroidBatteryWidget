@@ -11,8 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.os.BatteryManager;
-import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -31,9 +29,10 @@ public class WidgetUpdateService extends Service {
 
     private static final String TAG = "WidgetUpdateService";
 
-    private static final int ALARM_DURATION = 5 * 60 * 1000; // service 自启间隔
-    private static final int UPDATE_DURATION = 1 * 60 * 1000;     // Widget 更新间隔
-    private static final int UPDATE_MESSAGE = 1000;
+    private static final int ALARM_DURATION = 15 * 60 * 1000; // service 自启间隔
+    private static final int UPDATE_DURATION = 3 * 60 * 1000;     // Widget 更新间隔
+    private static final int MESSAGE_SCHEDULE = 1000;
+    private static final int MESSAGE_UPDATE = 1001;
 
     private static boolean isServiceAlive = false;
 
@@ -75,7 +74,7 @@ public class WidgetUpdateService extends Service {
         startForeground(0, new Notification());
 
         updateHandler = new UpdateHandler();
-        postMessage();
+        postScheduleMsg();
 
         batteryChangeReceiver = new BatteryChangeReceiver();
         registerReceiver(batteryChangeReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -102,14 +101,24 @@ public class WidgetUpdateService extends Service {
         manager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + ALARM_DURATION, ALARM_DURATION, pendingIntent);
     }
 
-    private void postMessage() {
+    private void postScheduleMsg() {
         if (updateHandler == null) {
             return;
         }
-        updateHandler.removeMessages(UPDATE_MESSAGE);
+        updateHandler.removeMessages(MESSAGE_SCHEDULE);
         Message message = updateHandler.obtainMessage();
-        message.what = UPDATE_MESSAGE;
+        message.what = MESSAGE_SCHEDULE;
         updateHandler.sendMessageDelayed(message, UPDATE_DURATION);
+    }
+
+    private void postUpdateMsg() {
+        if (updateHandler == null) {
+            return;
+        }
+        updateHandler.removeMessages(MESSAGE_UPDATE);
+        Message message = updateHandler.obtainMessage();
+        message.what = MESSAGE_UPDATE;
+        updateHandler.sendMessageDelayed(message, 1000L);
     }
 
     @Override
@@ -126,7 +135,11 @@ public class WidgetUpdateService extends Service {
 
     private void updateWidget() {
         Log.i(TAG, "updateWidget");
-        // 更新 Widget
+        postUpdateMsg();
+        postScheduleMsg();
+    }
+
+    private void doUpdateWidget() {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
 //        appWidgetManager.updateAppWidget(new ComponentName(getApplicationContext(), MyWidgetProvider.class), remoteViews);
 
@@ -134,9 +147,6 @@ public class WidgetUpdateService extends Service {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), BatteryWidget.class));
         updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
         sendBroadcast(updateIntent);
-
-        // 发送下次更新的消息
-        postMessage();
     }
 
 
@@ -164,8 +174,10 @@ public class WidgetUpdateService extends Service {
 
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == UPDATE_MESSAGE) {
+            if (msg.what == MESSAGE_SCHEDULE) {
                 updateWidget();
+            } else if (msg.what == MESSAGE_UPDATE) {
+                doUpdateWidget();
             }
         }
     }
