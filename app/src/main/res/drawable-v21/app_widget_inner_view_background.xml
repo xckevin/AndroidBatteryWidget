@@ -7,5 +7,6 @@ appWidgetInnerRadius attribute value
 
     <corners android:radius="?attr/appWidgetInnerRadius" />
 <!--    <solid android:color="?android:attr/colorAccent" />-->
-    <solid android:color="#afff" />
+<!--    <solid android:color="#afff" />-->
+    <solid android:color="@android:color/transparent" />
 </shape>

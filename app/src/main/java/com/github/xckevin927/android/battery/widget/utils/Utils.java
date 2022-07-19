@@ -45,7 +45,12 @@ public class Utils {
         paint.setAntiAlias(true);
         paint.setTextSize(width/4F);
         paint.setStrokeWidth(strokeWidth);
-        paint.setStyle(Paint.Style.STROKE);
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.parseColor("#aaffffff"));
+
+        float radius = context.getResources().getDisplayMetrics().density * 16;
+        canvas.drawRoundRect(0, 0, width, height, radius, radius, paint);
 
         RectF rect = new RectF(strokeWidth + lightningHeight/2F,
                 strokeWidth + lightningHeight/2F,
@@ -54,7 +59,7 @@ public class Utils {
 
         final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge();
 
-
+        paint.setStyle(Paint.Style.STROKE);
 
         int battery = batteryState.getLevel();
         if (isCharging) {
@@ -76,7 +81,7 @@ public class Utils {
         }
 
 //        paint.setColor(Color.YELLOW);
-        String batteryText = battery + "%";
+        final String batteryText = battery + "%";
         float batteryTextWidth = paint.measureText(batteryText);
         float batteryTextHeight = paint.getTextSize();
         canvas.drawText(batteryText, width / 2F - batteryTextWidth / 2, height / 2F + batteryTextHeight / 2, paint);
