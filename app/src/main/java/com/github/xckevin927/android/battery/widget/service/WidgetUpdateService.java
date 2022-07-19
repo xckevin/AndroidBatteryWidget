@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -36,23 +37,33 @@ public class WidgetUpdateService extends Service {
 
     private static boolean isServiceAlive = false;
 
+    private static IUpdateServiceAidlInterface updateServiceAidlInterface;
+
     private UpdateHandler updateHandler;
 
     private BatteryChangeReceiver batteryChangeReceiver;
 
     public static void start(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.bindService(new Intent(context, WidgetUpdateService.class), new ServiceConnection() {
-                @Override
-                public void onServiceConnected(ComponentName name, IBinder service) {
+            if (updateServiceAidlInterface == null) {
+                context.bindService(new Intent(context, WidgetUpdateService.class), new ServiceConnection() {
+                    @Override
+                    public void onServiceConnected(ComponentName name, IBinder service) {
+                        updateServiceAidlInterface = IUpdateServiceAidlInterface.Stub.asInterface(service);
+                    }
 
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+                        updateServiceAidlInterface = null;
+                    }
+                }, BIND_AUTO_CREATE);
+            } else {
+                try {
+                    updateServiceAidlInterface.updateRemoteWidget();
+                } catch (RemoteException e) {
+                    Log.e(TAG, "remote update widget error", e);
                 }
-
-                @Override
-                public void onServiceDisconnected(ComponentName name) {
-
-                }
-            }, BIND_AUTO_CREATE);
+            }
         } else {
             ContextCompat.startForegroundService(context, new Intent(context, WidgetUpdateService.class));
         }
@@ -104,7 +115,6 @@ public class WidgetUpdateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         updateWidget();
-        postMessage();
         return START_STICKY;
     }
 
@@ -142,11 +152,12 @@ public class WidgetUpdateService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return new MyBinder();
-    }
-
-    private class MyBinder extends Binder {
-
+        return new IUpdateServiceAidlInterface.Stub() {
+            @Override
+            public void updateRemoteWidget() throws RemoteException {
+                updateWidget();
+            }
+        };
     }
 
     private final class UpdateHandler extends Handler {
