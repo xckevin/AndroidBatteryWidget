@@ -65,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
                 @Override
                 public void onActivityResult(Boolean result) {
-                    renderWallpaper();
+                    if (result != null && result) {
+                        renderWallpaper();
+                    }
                 }
             }).launch(Manifest.permission.READ_EXTERNAL_STORAGE);
         } else {
