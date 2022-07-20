@@ -63,7 +63,7 @@ public class BatteryWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        WidgetUpdateService.start(context.getApplicationContext());
+        WidgetUpdateService.start(context.getApplicationContext(), false);
         Log.e(TAG, "onUpdate: ");
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {

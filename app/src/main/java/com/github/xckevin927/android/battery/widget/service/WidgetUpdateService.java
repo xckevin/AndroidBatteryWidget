@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -34,6 +35,9 @@ public class WidgetUpdateService extends Service {
     private static final int MESSAGE_SCHEDULE = 1000;
     private static final int MESSAGE_UPDATE = 1001;
 
+    public static final String COMMAND_KEY = "extra_command";
+    public static final String COMMAND_UPDATE = "command_update";
+
     private static boolean isServiceAlive = false;
 
     private static IUpdateServiceAidlInterface updateServiceAidlInterface;
@@ -43,9 +47,17 @@ public class WidgetUpdateService extends Service {
     private BatteryChangeReceiver batteryChangeReceiver;
 
     public static void start(Context context) {
+        start(context, true);
+    }
+
+    public static void start(Context context, boolean needUpdateWidget) {
+        Intent intent = new Intent(context, WidgetUpdateService.class);
+        if (needUpdateWidget) {
+            intent.putExtra(COMMAND_KEY, COMMAND_UPDATE);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (updateServiceAidlInterface == null) {
-                context.bindService(new Intent(context, WidgetUpdateService.class), new ServiceConnection() {
+                context.bindService(intent, new ServiceConnection() {
                     @Override
                     public void onServiceConnected(ComponentName name, IBinder service) {
                         updateServiceAidlInterface = IUpdateServiceAidlInterface.Stub.asInterface(service);
@@ -57,14 +69,16 @@ public class WidgetUpdateService extends Service {
                     }
                 }, BIND_AUTO_CREATE);
             } else {
-                try {
-                    updateServiceAidlInterface.updateRemoteWidget();
-                } catch (RemoteException e) {
-                    Log.e(TAG, "remote update widget error", e);
+                if (needUpdateWidget) {
+                    try {
+                        updateServiceAidlInterface.updateRemoteWidget();
+                    } catch (RemoteException e) {
+                        Log.e(TAG, "remote update widget error", e);
+                    }
                 }
             }
         } else {
-            ContextCompat.startForegroundService(context, new Intent(context, WidgetUpdateService.class));
+            ContextCompat.startForegroundService(context, intent);
         }
     }
 
@@ -74,6 +88,7 @@ public class WidgetUpdateService extends Service {
         startForeground(0, new Notification());
 
         updateHandler = new UpdateHandler();
+        postUpdateMsg();
         postScheduleMsg();
 
         batteryChangeReceiver = new BatteryChangeReceiver();
@@ -123,7 +138,9 @@ public class WidgetUpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        updateWidget();
+        if (intent != null && TextUtils.equals(COMMAND_UPDATE, intent.getStringExtra(COMMAND_KEY))) {
+            updateWidget();
+        }
         return START_STICKY;
     }
 
@@ -140,6 +157,7 @@ public class WidgetUpdateService extends Service {
     }
 
     private void doUpdateWidget() {
+        Log.i(TAG, "doUpdateWidget: ");
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
 //        appWidgetManager.updateAppWidget(new ComponentName(getApplicationContext(), MyWidgetProvider.class), remoteViews);
 

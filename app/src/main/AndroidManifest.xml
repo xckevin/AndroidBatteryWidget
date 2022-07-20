@@ -89,6 +89,7 @@
             </intent-filter>
         </receiver>
         <service android:name=".service.WidgetUpdateService"
+            android:process=":update"
             android:enabled="true"
             android:exported="true" />
     </application>
