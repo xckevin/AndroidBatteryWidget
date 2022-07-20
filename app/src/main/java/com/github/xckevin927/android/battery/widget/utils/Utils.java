@@ -13,7 +13,8 @@ import android.util.Size;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.github.xckevin927.android.battery.widget.PhoneBatteryState;
+import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
+import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState;
 import com.github.xckevin927.android.battery.widget.R;
 
 public class Utils {
@@ -31,10 +32,15 @@ public class Utils {
         }
     }
 
-    public static Bitmap generateBatteryBitmap(Context context, PhoneBatteryState batteryState) {
+    public static int getDefaultBackgoundColor() {
+        return Color.parseColor("#aaffffff");
+    }
+
+    public static Bitmap generateBatteryBitmap(Context context, PhoneBatteryState batteryState, BatteryWidgetPref widgetPref) {
         final int width = 800;
         final int height = 800;
-        final int strokeWidth = 6;
+        final float density = context.getResources().getDisplayMetrics().density;
+        final float strokeWidth = widgetPref.getLineWidth() * density;
 
         final Bitmap indicatorIcon = BitmapFactory.decodeResource(context.getResources(),
                 batteryState.isInPowerSaveMode() ? R.drawable.battery_saver : R.drawable.lightning);
@@ -47,11 +53,13 @@ public class Utils {
         paint.setTextSize(width/4F);
         paint.setStrokeWidth(strokeWidth);
 
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.parseColor("#aaffffff"));
+        if (widgetPref.isShowBackground()) {
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(widgetPref.getBackgroundColor());
 
-        float radius = context.getResources().getDisplayMetrics().density * 16;
-        canvas.drawRoundRect(0, 0, width, height, radius, radius, paint);
+            float radius = widgetPref.getRound() * density;
+            canvas.drawRoundRect(0, 0, width, height, radius, radius, paint);
+        }
 
         RectF rect = new RectF(strokeWidth + indicatorIconHeight/2F,
                 strokeWidth + indicatorIconHeight/2F,
@@ -61,6 +69,12 @@ public class Utils {
         final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge();
 
         paint.setStyle(Paint.Style.STROKE);
+
+        if (widgetPref.isShowBackgroundProgress()) {
+            paint.setColor(Color.parseColor("#cccccc"));
+            canvas.drawArc(rect, -90F, 360F, false, paint);
+        }
+
 
         int battery = batteryState.getLevel();
         if (isCharging) {

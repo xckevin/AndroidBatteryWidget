@@ -1,4 +1,4 @@
-package com.github.xckevin927.android.battery.widget;
+package com.github.xckevin927.android.battery.widget.model;
 
 public class PhoneBatteryState {
 

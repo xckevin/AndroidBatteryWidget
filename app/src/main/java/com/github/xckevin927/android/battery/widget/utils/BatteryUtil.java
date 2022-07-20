@@ -6,7 +6,7 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 
-import com.github.xckevin927.android.battery.widget.PhoneBatteryState;
+import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState;
 
 public class BatteryUtil {
 
