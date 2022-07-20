@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import androidx.core.content.ContextCompat;
 
 import com.github.xckevin927.android.battery.widget.receiver.BatteryChangeReceiver;
 import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
+import com.github.xckevin927.android.battery.widget.receiver.PhoneStatusChangeReceiver;
 
 public class WidgetUpdateService extends Service {
 
@@ -45,6 +47,7 @@ public class WidgetUpdateService extends Service {
     private UpdateHandler updateHandler;
 
     private BatteryChangeReceiver batteryChangeReceiver;
+    private BroadcastReceiver statusChangeReceiver;
 
     public static void start(Context context) {
         start(context, true);
@@ -93,6 +96,14 @@ public class WidgetUpdateService extends Service {
 
         batteryChangeReceiver = new BatteryChangeReceiver();
         registerReceiver(batteryChangeReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+        statusChangeReceiver = new PhoneStatusChangeReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        intentFilter.addAction(Intent.ACTION_USER_PRESENT);
+        registerReceiver(statusChangeReceiver, intentFilter);
 
         ensureServiceAlive();
         isServiceAlive = true;
@@ -171,7 +182,9 @@ public class WidgetUpdateService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        ensureServiceAlive();
         unregisterReceiver(batteryChangeReceiver);
+        unregisterReceiver(statusChangeReceiver);
         updateHandler.removeCallbacks(null);
         updateHandler = null;
         isServiceAlive = false;
