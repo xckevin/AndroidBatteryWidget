@@ -17,7 +17,7 @@ public class BatteryWidgetPref implements Serializable {
 
     private boolean showBackgroundProgress = false;
 
-    private int lineWidth = 6;
+    private int lineWidth = 4;
 
     public BatteryWidgetPref() {
     }

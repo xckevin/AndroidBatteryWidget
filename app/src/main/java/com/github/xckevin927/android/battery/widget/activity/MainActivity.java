@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        renderWallpaper();
         setUpBatteryContent();
 
         MaterialCheckBox wallpaperCheckBox = findViewById(R.id.id_show_wallpaper_check_activity_main);
@@ -85,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
                 removeWallpaper();
             }
         });
+        if (widgetPref.isShowWallpaper()) {
+            renderWallpaper();
+        }
 
         // background settings
         SwitchMaterial bgSwitch = findViewById(R.id.id_show_bg_switch__activity_main);
