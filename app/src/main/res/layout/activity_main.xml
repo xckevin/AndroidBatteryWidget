@@ -77,12 +77,14 @@
                         android:layout_height="wrap_content"
                         android:text="Background Color" />
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/id_bg_color_indicator_activity_main"
                         android:layout_width="40dp"
+                        android:padding="2dp"
+                        app:strokeColor="#eee"
+                        app:strokeWidth="2dp"
                         android:layout_height="40dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/light_blue_900" />
+                        android:layout_marginTop="2dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextAppearance.MaterialComponents.Body1"
@@ -149,13 +151,34 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 
-
-    <Button
-        android:id="@+id/add_widget"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Widget"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/battery_container" />
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_pref"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Config"
+            app:layout_constraintEnd_toStartOf="@id/add_widget"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_widget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save And Add Widget"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@id/save_pref"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>

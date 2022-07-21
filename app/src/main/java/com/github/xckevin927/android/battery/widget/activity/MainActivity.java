@@ -1,15 +1,6 @@
 package com.github.xckevin927.android.battery.widget.activity;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
@@ -18,16 +9,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Size;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -40,6 +34,7 @@ import com.github.xckevin927.android.battery.widget.service.WidgetUpdateService;
 import com.github.xckevin927.android.battery.widget.utils.BatteryUtil;
 import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
 import com.github.xckevin927.android.battery.widget.utils.Utils;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -60,12 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         widgetPref = BatteryWidgetPrefHelper.getBatteryWidgetPref(this);
 
-        wallpaperPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
-            @Override
-            public void onActivityResult(Boolean result) {
-                if (result != null && result) {
-                    renderWallpaper();
-                }
+        wallpaperPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
+            if (result != null && result) {
+                renderWallpaper();
             }
         });
 
@@ -84,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         setUpBatteryContent();
 
         MaterialCheckBox wallpaperCheckBox = findViewById(R.id.id_show_wallpaper_check_activity_main);
+        wallpaperCheckBox.setChecked(widgetPref.isShowWallpaper());
         wallpaperCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             widgetPref.setShowWallpaper(isChecked);
             if (isChecked) {
@@ -92,45 +85,50 @@ public class MainActivity extends AppCompatActivity {
                 removeWallpaper();
             }
         });
-        wallpaperCheckBox.setChecked(widgetPref.isShowWallpaper());
 
         // background settings
         SwitchMaterial bgSwitch = findViewById(R.id.id_show_bg_switch__activity_main);
+        bgSwitch.setChecked(widgetPref.isShowBackground());
         bgSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             widgetPref.setShowBackground(isChecked);
             renderBatteryWidget();
         });
-        bgSwitch.setChecked(widgetPref.isShowBackground());
 
         bgColorIndicatorView = findViewById(R.id.id_bg_color_indicator_activity_main);
+        bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
         bgColorIndicatorView.setOnClickListener(v -> chooseColor());
-        bgColorIndicatorView.setBackgroundColor(widgetPref.getBackgroundColor());
 
         RangeSlider roundSlider = findViewById(R.id.id_round_slide__activity_main);
+        roundSlider.setValues((float)widgetPref.getRound());
         roundSlider.addOnChangeListener((slider, value, fromUser) -> {
             widgetPref.setRound((int) value);
             renderBatteryWidget();
         });
-        roundSlider.setValues((float)widgetPref.getRound());
 
         // progress settings
         SwitchMaterial bgProgressSwitch = findViewById(R.id.id_show_bg_progress_switch__activity_main);
+        bgProgressSwitch.setChecked(widgetPref.isShowBackgroundProgress());
         bgProgressSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             widgetPref.setShowBackgroundProgress(isChecked);
             renderBatteryWidget();
         });
-        bgProgressSwitch.setChecked(widgetPref.isShowBackgroundProgress());
 
         RangeSlider lineSlider = findViewById(R.id.id_stroke_slide_activity_main);
+        lineSlider.setValues((float) widgetPref.getLineWidth());
         lineSlider.addOnChangeListener((slider, value, fromUser) -> {
             widgetPref.setLineWidth((int) value);
             renderBatteryWidget();
         });
-        lineSlider.setValues((float) widgetPref.getLineWidth());
 
+        MaterialButton saveBtn = findViewById(R.id.save_pref);
+        saveBtn.setOnClickListener(v -> BatteryWidgetPrefHelper.saveBatteryWidgetPref(this, widgetPref));
 
-        findViewById(R.id.add_widget).setOnClickListener(v -> requestToPinWidget());
-
+        MaterialButton addBtn = findViewById(R.id.add_widget);
+        addBtn.setVisibility(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? View.VISIBLE : View.INVISIBLE);
+        addBtn.setOnClickListener(v -> {
+            BatteryWidgetPrefHelper.saveBatteryWidgetPref(MainActivity.this, widgetPref);
+            requestToPinWidget();
+        });
     }
 
     private void setUpBatteryContent() {
@@ -214,8 +212,8 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new ColorPickerClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        bgColorIndicatorView.setBackgroundColor(selectedColor);
                         widgetPref.setBackgroundColor(selectedColor);
+                        bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
                         renderBatteryWidget();
                     }
                 })
