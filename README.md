@@ -35,7 +35,13 @@ onWindows, just use
 ```groovy
 ./gradlew.bat :app:installDebug
 ```
+## dependencies
++ fastjson: https://github.com/alibaba/fastjson
++ color pick: https://github.com/QuadFlask/colorpicker
 
 ## Next
 
-...
+1. show in status bar
+2. ...
+
+> just create issue
