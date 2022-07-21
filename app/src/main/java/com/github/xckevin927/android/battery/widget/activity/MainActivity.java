@@ -15,11 +15,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -131,6 +134,21 @@ public class MainActivity extends AppCompatActivity {
             BatteryWidgetPrefHelper.saveBatteryWidgetPref(MainActivity.this, widgetPref);
             requestToPinWidget();
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.id_restore_default) {
+            widgetPref  = new BatteryWidgetPref();
+            renderBatteryWidget();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setUpBatteryContent() {
