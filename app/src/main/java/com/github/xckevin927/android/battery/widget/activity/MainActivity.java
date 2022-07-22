@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.id_restore_default) {
             widgetPref  = new BatteryWidgetPref();
+            initViews();
             renderBatteryWidget();
         }
         return super.onOptionsItemSelected(item);

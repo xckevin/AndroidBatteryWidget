@@ -79,11 +79,12 @@
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/id_bg_color_indicator_activity_main"
-                        android:layout_width="40dp"
+                        android:layout_width="48dp"
                         android:padding="2dp"
                         app:strokeColor="#eee"
                         app:strokeWidth="2dp"
-                        android:layout_height="40dp"
+                        android:contentDescription="Background Color"
+                        android:layout_height="48dp"
                         android:layout_marginTop="2dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
@@ -99,6 +100,7 @@
                         android:layout_height="wrap_content"
                         android:stepSize="1"
                         android:valueFrom="0"
+                        android:contentDescription="round size"
                         android:valueTo="400" />
 
 
@@ -140,6 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:stepSize="1"
+                        android:contentDescription="line width"
                         android:valueFrom="4"
                         android:valueTo="12" />
 
