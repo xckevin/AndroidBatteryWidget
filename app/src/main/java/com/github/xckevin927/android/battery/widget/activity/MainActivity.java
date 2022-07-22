@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -27,8 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
@@ -214,34 +211,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void saveData() {
-    }
-
     private void chooseColor() {
         ColorPickerDialogBuilder
                 .with(this)
-                .setTitle("Choose color")
+                .setTitle(getString(R.string.choose_color))
                 .initialColor(widgetPref.getBackgroundColor())
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
-                .setOnColorSelectedListener(new OnColorSelectedListener() {
-                    @Override
-                    public void onColorSelected(int selectedColor) {
+                .setOnColorSelectedListener(selectedColor -> {
 //                        toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
-                    }
                 })
-                .setPositiveButton("OK", new ColorPickerClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        widgetPref.setBackgroundColor(selectedColor);
-                        bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
-                        renderBatteryWidget();
-                    }
+                .setPositiveButton(android.R.string.ok, (dialog, selectedColor, allColors) -> {
+                    widgetPref.setBackgroundColor(selectedColor);
+                    bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
+                    renderBatteryWidget();
                 })
-                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
                 })
                 .build()
                 .show();

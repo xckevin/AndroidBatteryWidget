@@ -11,12 +11,6 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/appwidget_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY" />
-
-        <ImageView
             android:id="@+id/appwidget_progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

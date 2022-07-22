@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/id_restore_default"
-        android:title="Restore Default"
+        android:title="@string/restore_default"
         app:showAsAction="never" />
 </menu>

@@ -4,4 +4,17 @@
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">Battery Indicator</string>
+    <string name="show_wallpaper">Show Wallpaper</string>
+    <string name="show_background">Show Background</string>
+    <string name="background_color">Background Color</string>
+    <string name="round">Round</string>
+    <string name="round_size">round size</string>
+    <string name="progress_settings">Progress Settings</string>
+    <string name="background_progress">Background Progress</string>
+    <string name="line_width">Line Width</string>
+    <string name="save_config">Save Config</string>
+    <string name="save_and_add_widget">Save And Add Widget</string>
+    <string name="background_settings">Background Settings</string>
+    <string name="restore_default">Restore Default</string>
+    <string name="choose_color">Choose Color</string>
 </resources>

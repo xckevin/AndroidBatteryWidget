@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Show Wallpaper" />
+            android:text="@string/show_wallpaper" />
 
     </FrameLayout>
 
@@ -63,20 +63,20 @@
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Background Settings" />
+                        android:text="@string/background_settings" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/id_show_bg_switch__activity_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Show Background" />
+                        android:text="@string/show_background" />
 
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Background Color" />
+                        android:text="@string/background_color" />
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/id_bg_color_indicator_activity_main"
@@ -84,7 +84,7 @@
                         android:padding="2dp"
                         app:strokeColor="#eee"
                         app:strokeWidth="2dp"
-                        android:contentDescription="background color"
+                        android:contentDescription="@string/background_color"
                         android:layout_height="48dp"
                         android:layout_marginTop="2dp"/>
 
@@ -93,7 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Round" />
+                        android:text="@string/round" />
 
                     <com.google.android.material.slider.RangeSlider
                         android:id="@+id/id_round_slide__activity_main"
@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:stepSize="1"
                         android:valueFrom="0"
-                        android:contentDescription="round size"
+                        android:contentDescription="@string/round_size"
                         android:valueTo="400" />
 
 
@@ -124,19 +124,19 @@
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Progress Settings" />
+                        android:text="@string/progress_settings" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/id_show_bg_progress_switch__activity_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Background Progress" />
+                        android:text="@string/background_progress" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Line Width" />
+                        android:text="@string/line_width" />
 
                     <com.google.android.material.slider.RangeSlider
                         android:id="@+id/id_stroke_slide_activity_main"
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:stepSize="1"
                         android:valueFrom="4"
-                        android:contentDescription="line width"
+                        android:contentDescription="@string/line_width"
                         android:valueTo="12" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -163,7 +163,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Save Config"
+                    android:text="@string/save_config"
                     app:layout_constraintEnd_toStartOf="@id/add_widget"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +173,7 @@
                     android:id="@+id/add_widget"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Save And Add Widget"
+                    android:text="@string/save_and_add_widget"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toEndOf="@id/save_pref"
