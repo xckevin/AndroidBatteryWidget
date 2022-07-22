@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 removeWallpaper();
             }
         });
+        wallpaperCheckBox.setTextColor(Color.BLACK);
         if (widgetPref.isShowWallpaper()) {
             renderWallpaper();
         }
