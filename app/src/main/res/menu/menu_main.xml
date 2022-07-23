@@ -4,6 +4,10 @@
 
     <item
         android:id="@+id/id_restore_default"
-        android:title="@string/restore_default"
+        android:title="@string/menu_restore_default"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/id_share"
+        android:title="@string/menu_share"
         app:showAsAction="never" />
 </menu>

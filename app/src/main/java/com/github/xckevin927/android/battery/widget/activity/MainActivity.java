@@ -38,6 +38,7 @@ import com.github.xckevin927.android.battery.widget.service.WidgetUpdateService;
 import com.github.xckevin927.android.battery.widget.utils.AFunc1;
 import com.github.xckevin927.android.battery.widget.utils.BatteryUtil;
 import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
+import com.github.xckevin927.android.battery.widget.utils.ShareUtil;
 import com.github.xckevin927.android.battery.widget.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -198,6 +199,8 @@ public class MainActivity extends AppCompatActivity {
             widgetPref = new BatteryWidgetPref();
             setUpViews();
             renderBatteryWidget();
+        } else if (item.getItemId() == R.id.id_share) {
+            ShareUtil.share(this);
         }
         return super.onOptionsItemSelected(item);
     }
