@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -54,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
     private MaterialCheckBox wallpaperCheckBox;
     private SwitchMaterial bgSwitch;
+    private TextView bgColorTitleTv;
     private ImageView bgColorIndicatorView;
+    private TextView dardBgColorTitleTv;
     private ImageView darkBgColorIndicatorView;
     private RangeSlider roundSlider;
     private SwitchMaterial bgProgressSwitch;
@@ -111,22 +114,26 @@ public class MainActivity extends AppCompatActivity {
             renderBatteryWidget();
         });
 
+        bgColorTitleTv = findViewById(R.id.id_bg_color_title_activity_main);
         bgColorIndicatorView = findViewById(R.id.id_bg_color_indicator_activity_main);
         bgColorIndicatorView.setOnClickListener(v -> chooseColor(widgetPref.getBackgroundColor(), c -> {
             widgetPref.setBackgroundColor(c);
-            bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
+            renderBgColor();
             renderBatteryWidget();
         }));
 
+        dardBgColorTitleTv = findViewById(R.id.id_dark_bg_color_title_activity_main);
         darkBgColorIndicatorView = findViewById(R.id.id_bg_color_in_dark_indicator_activity_main);
         darkBgColorIndicatorView.setOnClickListener(v -> chooseColor(widgetPref.getBackgroundColorInDarkMode(), c -> {
             widgetPref.setBackgroundColorInDarkMode(c);
-            darkBgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColorInDarkMode()));
+            renderDarkBg();
             renderBatteryWidget();
         }));
 
+        TextView roundTitle = findViewById(R.id.id_round_title_activity_main);
         roundSlider = findViewById(R.id.id_round_slide_activity_main);
         roundSlider.addOnChangeListener((slider, value, fromUser) -> {
+            roundTitle.setText(getString(R.string.round, (int)value));
             widgetPref.setRound((int) value);
             renderBatteryWidget();
         });
@@ -138,8 +145,10 @@ public class MainActivity extends AppCompatActivity {
             renderBatteryWidget();
         });
 
+        TextView lineWidthTitle = findViewById(R.id.id_stroke_title_activity_main);
         lineSlider = findViewById(R.id.id_stroke_slide_activity_main);
         lineSlider.addOnChangeListener((slider, value, fromUser) -> {
+            lineWidthTitle.setText(getString(R.string.line_width, (int)value));
             widgetPref.setLineWidth((int) value);
             renderBatteryWidget();
         });
@@ -157,12 +166,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpViews() {
         wallpaperCheckBox.setChecked(widgetPref.isShowWallpaper());
+
         bgSwitch.setChecked(widgetPref.isShowBackground());
-        bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
-        darkBgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColorInDarkMode()));
+        renderBgColor();
+        renderDarkBg();
         roundSlider.setValues((float) widgetPref.getRound());
+
         bgProgressSwitch.setChecked(widgetPref.isShowBackgroundProgress());
         lineSlider.setValues((float) widgetPref.getLineWidth());
+    }
+
+    private void renderBgColor() {
+        bgColorTitleTv.setText(getString(R.string.background_color, "0x" + Integer.toHexString(widgetPref.getBackgroundColor())));
+        bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
+    }
+
+    private void renderDarkBg() {
+        dardBgColorTitleTv.setText(getString(R.string.background_color_dark_model, "0x" + Integer.toHexString(widgetPref.getBackgroundColorInDarkMode())));
+        darkBgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColorInDarkMode()));
     }
 
     @Override
