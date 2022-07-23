@@ -9,8 +9,8 @@ android {
         applicationId "com.github.xckevin927.android.battery.widget"
         minSdk 21
         targetSdk 32
-        versionCode 3
-        versionName "0.2.0"
+        versionCode 4
+        versionName "0.4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
