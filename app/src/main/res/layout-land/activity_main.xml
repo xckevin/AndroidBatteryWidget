@@ -143,7 +143,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:stepSize="1"
-                        android:valueFrom="4"
+                        android:valueFrom="2"
                         android:contentDescription="@string/line_width"
                         android:valueTo="12" />
 

@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:stepSize="1"
                         android:contentDescription="@string/line_width"
-                        android:valueFrom="4"
+                        android:valueFrom="2"
                         android:valueTo="12" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
