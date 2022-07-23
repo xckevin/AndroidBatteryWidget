@@ -36,9 +36,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:layout_weight="1">
+        android:paddingEnd="16dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -72,6 +72,7 @@
 
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/id_bg_color_title_activity_main"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -80,14 +81,15 @@
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/id_bg_color_indicator_activity_main"
                         android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="2dp"
+                        android:contentDescription="@string/background_color"
                         android:padding="2dp"
                         app:strokeColor="#eee"
-                        app:strokeWidth="2dp"
-                        android:contentDescription="@string/background_color"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="2dp"/>
+                        app:strokeWidth="2dp" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/id_dark_bg_color_title_activity_main"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -97,14 +99,15 @@
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/id_bg_color_in_dark_indicator_activity_main"
                         android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="2dp"
+                        android:contentDescription="@string/background_color_dark_model"
                         android:padding="2dp"
                         app:strokeColor="#eee"
-                        app:strokeWidth="2dp"
-                        android:contentDescription="@string/background_color_dark_model"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="2dp"/>
+                        app:strokeWidth="2dp" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/id_round_title_activity_main"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -112,12 +115,12 @@
                         android:text="@string/round" />
 
                     <com.google.android.material.slider.RangeSlider
-                        android:id="@+id/id_round_slide__activity_main"
+                        android:id="@+id/id_round_slide_activity_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/round_size"
                         android:stepSize="1"
                         android:valueFrom="0"
-                        android:contentDescription="@string/round_size"
                         android:valueTo="400" />
 
 
@@ -143,12 +146,13 @@
                         android:text="@string/progress_settings" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/id_show_bg_progress_switch__activity_main"
+                        android:id="@+id/id_show_bg_progress_switch_activity_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/background_progress" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/id_stroke_title_activity_main"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -158,8 +162,8 @@
                         android:id="@+id/id_stroke_slide_activity_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:stepSize="1"
                         android:contentDescription="@string/line_width"
+                        android:stepSize="1"
                         android:valueFrom="2"
                         android:valueTo="12" />
 
