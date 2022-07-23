@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -32,6 +33,7 @@ import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
 import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
 import com.github.xckevin927.android.battery.widget.service.WidgetUpdateService;
+import com.github.xckevin927.android.battery.widget.utils.AFunc1;
 import com.github.xckevin927.android.battery.widget.utils.BatteryUtil;
 import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
 import com.github.xckevin927.android.battery.widget.utils.Utils;
@@ -45,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<String> wallpaperPermissionLauncher;
 
     private BatteryWidgetPref widgetPref;
-
-    private ImageView bgColorIndicatorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +98,24 @@ public class MainActivity extends AppCompatActivity {
             renderBatteryWidget();
         });
 
-        bgColorIndicatorView = findViewById(R.id.id_bg_color_indicator_activity_main);
+        final ImageView bgColorIndicatorView = findViewById(R.id.id_bg_color_indicator_activity_main);
         bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
-        bgColorIndicatorView.setOnClickListener(v -> chooseColor());
+        bgColorIndicatorView.setOnClickListener(v -> chooseColor(widgetPref.getBackgroundColor(), c -> {
+            widgetPref.setBackgroundColor(c);
+            bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
+            renderBatteryWidget();
+        }));
+
+        final ImageView darkBgColorIndicatorView = findViewById(R.id.id_bg_color_in_dark_indicator_activity_main);
+        darkBgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColorInDarkMode()));
+        darkBgColorIndicatorView.setOnClickListener(v -> chooseColor(widgetPref.getBackgroundColorInDarkMode(), c -> {
+            widgetPref.setBackgroundColorInDarkMode(c);
+            darkBgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColorInDarkMode()));
+            renderBatteryWidget();
+        }));
 
         RangeSlider roundSlider = findViewById(R.id.id_round_slide__activity_main);
-        roundSlider.setValues((float)widgetPref.getRound());
+        roundSlider.setValues((float) widgetPref.getRound());
         roundSlider.addOnChangeListener((slider, value, fromUser) -> {
             widgetPref.setRound((int) value);
             renderBatteryWidget();
@@ -144,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.id_restore_default) {
-            widgetPref  = new BatteryWidgetPref();
+            widgetPref = new BatteryWidgetPref();
             initViews();
             renderBatteryWidget();
         }
@@ -194,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
     }
 
-    private void requestToPinWidget(){
+    private void requestToPinWidget() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             AppWidgetManager appWidgetManager = getSystemService(AppWidgetManager.class);
             ComponentName myProvider = new ComponentName(this, BatteryWidget.class);
@@ -202,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             if (appWidgetManager.isRequestPinAppWidgetSupported()) {
                 Intent pinnedWidgetCallbackIntent = new Intent(this, MainActivity.class);
                 PendingIntent successCallback = PendingIntent.getBroadcast(this, 0,
-                        pinnedWidgetCallbackIntent, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
+                        pinnedWidgetCallbackIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 appWidgetManager.requestPinAppWidget(myProvider, null, successCallback);
             }
         } else {
@@ -213,20 +225,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void chooseColor() {
+    private void chooseColor(@ColorInt int initColor, @NonNull AFunc1<Integer> chooseCallback) {
         ColorPickerDialogBuilder
                 .with(this)
                 .setTitle(getString(R.string.choose_color))
-                .initialColor(widgetPref.getBackgroundColor())
+                .initialColor(initColor)
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(selectedColor -> {
 //                        toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
                 })
                 .setPositiveButton(android.R.string.ok, (dialog, selectedColor, allColors) -> {
-                    widgetPref.setBackgroundColor(selectedColor);
-                    bgColorIndicatorView.setImageDrawable(new ColorDrawable(widgetPref.getBackgroundColor()));
-                    renderBatteryWidget();
+                    chooseCallback.call(selectedColor);
                 })
                 .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
                 })

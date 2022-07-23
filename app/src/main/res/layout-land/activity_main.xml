@@ -93,6 +93,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:text="@string/background_color_dark_model" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/id_bg_color_in_dark_indicator_activity_main"
+                        android:layout_width="48dp"
+                        android:padding="2dp"
+                        app:strokeColor="#eee"
+                        app:strokeWidth="2dp"
+                        android:contentDescription="@string/background_color_dark_model"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="2dp"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:text="@string/round" />
 
                     <com.google.android.material.slider.RangeSlider

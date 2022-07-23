@@ -1,6 +1,7 @@
 package com.github.xckevin927.android.battery.widget.utils;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -32,9 +33,19 @@ public class Utils {
         }
     }
 
-    public static int getDefaultBackgoundColor() {
+    public static boolean isNightMode(Context context) {
+        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    public static int getDefaultBackgroundColor() {
         return Color.parseColor("#aaffffff");
     }
+
+    public static int getDefaultBackgroundColorInNightMode() {
+        return Color.parseColor("#aa333333");
+    }
+
 
     public static Bitmap generateBatteryBitmap(Context context, PhoneBatteryState batteryState, BatteryWidgetPref widgetPref) {
         final int width = 800;
@@ -55,7 +66,7 @@ public class Utils {
 
         if (widgetPref.isShowBackground()) {
             paint.setStyle(Paint.Style.FILL);
-            paint.setColor(widgetPref.getBackgroundColor());
+            paint.setColor(Utils.isNightMode(context) ? widgetPref.getBackgroundColorInDarkMode() : widgetPref.getBackgroundColor());
 
             float radius = widgetPref.getRound() * density;
             canvas.drawRoundRect(0, 0, width, height, radius, radius, paint);

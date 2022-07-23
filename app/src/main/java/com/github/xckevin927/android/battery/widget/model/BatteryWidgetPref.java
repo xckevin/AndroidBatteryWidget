@@ -11,7 +11,9 @@ public class BatteryWidgetPref implements Serializable {
 
     private boolean showBackground = true;
 
-    private int backgroundColor = Utils.getDefaultBackgoundColor();
+    private int backgroundColor = Utils.getDefaultBackgroundColor();
+
+    private int backgroundColorInDarkMode = Utils.getDefaultBackgroundColorInNightMode();
 
     private int round = 16;
 
@@ -44,6 +46,14 @@ public class BatteryWidgetPref implements Serializable {
 
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    public int getBackgroundColorInDarkMode() {
+        return backgroundColorInDarkMode;
+    }
+
+    public void setBackgroundColorInDarkMode(int backgroundColorInDarkMode) {
+        this.backgroundColorInDarkMode = backgroundColorInDarkMode;
     }
 
     public int getRound() {
