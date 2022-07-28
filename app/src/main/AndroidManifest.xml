@@ -20,6 +20,15 @@
         android:theme="@style/Theme.AndroidBatteryWidget"
         tools:targetApi="31">
         <activity
+            android:name=".activity.BtActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.SettingsActivity"
             android:exported="false"
             android:label="@string/activity_settings_label" />
@@ -27,11 +36,7 @@
             android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <receiver
