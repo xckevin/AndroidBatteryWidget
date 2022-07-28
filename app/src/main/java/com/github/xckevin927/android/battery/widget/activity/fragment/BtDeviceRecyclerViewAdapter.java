@@ -6,20 +6,16 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.xckevin927.android.battery.widget.activity.placeholder.PlaceholderContent.PlaceholderItem;
 import com.github.xckevin927.android.battery.widget.databinding.FragmentBtDeviceBinding;
+import com.github.xckevin927.android.battery.widget.model.BtDeviceState;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class BtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<BtDeviceRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<BtDeviceState> mValues;
 
-    public BtDeviceRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public BtDeviceRecyclerViewAdapter(List<BtDeviceState> items) {
         mValues = items;
     }
 
@@ -33,8 +29,8 @@ public class BtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<BtDeviceRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getAddr());
+        holder.mContentView.setText(mValues.get(position).toString());
     }
 
     @Override
@@ -45,7 +41,7 @@ public class BtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<BtDeviceRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
-        public PlaceholderItem mItem;
+        public BtDeviceState mItem;
 
         public ViewHolder(FragmentBtDeviceBinding binding) {
             super(binding.getRoot());
