@@ -3,6 +3,7 @@ package com.github.xckevin927.android.battery.widget.service;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -22,11 +24,22 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationChannelCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
+import com.github.xckevin927.android.battery.widget.Constants;
+import com.github.xckevin927.android.battery.widget.R;
+import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
+import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState;
 import com.github.xckevin927.android.battery.widget.receiver.BatteryChangeReceiver;
 import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
 import com.github.xckevin927.android.battery.widget.receiver.PhoneStatusChangeReceiver;
+import com.github.xckevin927.android.battery.widget.utils.BatteryUtil;
+import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
+import com.github.xckevin927.android.battery.widget.utils.Utils;
 
 public class WidgetUpdateService extends Service {
 
@@ -36,6 +49,8 @@ public class WidgetUpdateService extends Service {
     private static final int UPDATE_DURATION = 3 * 60 * 1000;     // Widget 更新间隔
     private static final int MESSAGE_SCHEDULE = 1000;
     private static final int MESSAGE_UPDATE = 1001;
+
+    private static final int NOTIFICATION_ID = 13364;
 
     public static final String COMMAND_KEY = "extra_command";
     public static final String COMMAND_UPDATE = "command_update";
@@ -88,7 +103,12 @@ public class WidgetUpdateService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        startForeground(0, new Notification());
+        createNotificationChannel();
+        if (needShowBatteryInStatus()) {
+            showBatteryNotification();
+        } else {
+            startForeground(0, new Notification());
+        }
 
         updateHandler = new UpdateHandler();
         postUpdateMsg();
@@ -108,6 +128,49 @@ public class WidgetUpdateService extends Service {
         ensureServiceAlive();
         isServiceAlive = true;
         Log.e(TAG, "onCreate: ");
+    }
+
+    private boolean needShowBatteryInStatus() {
+        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .getBoolean(Constants.SettingsKey.KEY_SHOW_IN_STATUS_BAR, false);
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+            NotificationChannelCompat channelCompat = new NotificationChannelCompat.Builder(Constants.NOTIFICATION_CHANNEL_ID, NotificationManager.IMPORTANCE_DEFAULT)
+                    .setName(getString(R.string.notification_channel_title))
+                    .setDescription(getString(R.string.notification_channel_desc))
+                    .setShowBadge(false)
+                    .build();
+            notificationManagerCompat.createNotificationChannel(channelCompat);
+        }
+    }
+
+    private void showBatteryNotification() {
+        BatteryWidgetPref pref = BatteryWidgetPrefHelper.getDefaultWidgetPref();
+        pref.setShowBackground(false);
+        pref.setShowBackgroundProgress(false);
+
+        PhoneBatteryState phoneBatteryState = BatteryUtil.getBatteryState(getApplicationContext());
+
+
+        Notification notification = new NotificationCompat.Builder(getApplicationContext(), Constants.NOTIFICATION_CHANNEL_ID)
+                .setLargeIcon(Utils.generateBatteryBitmap(getApplicationContext(), phoneBatteryState, pref))
+                .setSmallIcon(getApplicationContext().getResources().getIdentifier("white_round_" + phoneBatteryState.getLevel(), "drawable", getPackageName()))
+                .setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setOnlyAlertOnce(true)
+                .setShowWhen(false)
+                .setOngoing(true)
+                .build();
+        startForeground(NOTIFICATION_ID, notification);
+    }
+
+    private void cancelBatteryNotification() {
+        stopForeground(true);
+        startForeground(0, new Notification());
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
@@ -176,6 +239,12 @@ public class WidgetUpdateService extends Service {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), BatteryWidget.class));
         updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
         sendBroadcast(updateIntent);
+
+        if (needShowBatteryInStatus()) {
+            showBatteryNotification();
+        } else {
+            cancelBatteryNotification();
+        }
     }
 
 

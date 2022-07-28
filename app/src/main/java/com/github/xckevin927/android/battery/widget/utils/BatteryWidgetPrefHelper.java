@@ -16,6 +16,10 @@ public class BatteryWidgetPrefHelper {
 
     private static BatteryWidgetPref batteryWidgetPref;
 
+    public static BatteryWidgetPref getDefaultWidgetPref() {
+        return new BatteryWidgetPref();
+    }
+
     public static void saveBatteryWidgetPref(Context context, BatteryWidgetPref batteryWidgetPref) {
         if (batteryWidgetPref == null) {
             return;

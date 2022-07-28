@@ -19,7 +19,15 @@
     <string name="choose_color">Choose Color</string>
     <string name="menu_restore_default">Restore Default</string>
     <string name="menu_share">Share</string>
+    <string name="menu_advance">Advance</string>
 
     <string name="share_title">Share</string>
     <string name="share_content">I found a cool app: https://play.google.com/store/apps/details?id=%s</string>
+    <string name="activity_settings_label">Settings</string>
+    <string name="activity_main_label">Configuration</string>
+
+    <string name="setting_show_in_notification">Show In Status Bar</string>
+
+    <string name="notification_channel_title">Battery Indicator</string>
+    <string name="notification_channel_desc">Show Battery Indicator In Status Bar</string>
 </resources>

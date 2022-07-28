@@ -31,6 +31,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.github.xckevin927.android.battery.widget.App;
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
 import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
@@ -45,7 +46,7 @@ import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private final Handler handler = new Handler();
     private ActivityResultLauncher<String> wallpaperPermissionLauncher;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        widgetPref = BatteryWidgetPrefHelper.getBatteryWidgetPref(this);
+        widgetPref = BatteryWidgetPrefHelper.getBatteryWidgetPref(App.getAppContext());
 
         wallpaperPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
             if (result != null && result) {
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        WidgetUpdateService.start(getApplicationContext());
         renderBatteryWidget();
     }
 
@@ -199,8 +199,13 @@ public class MainActivity extends AppCompatActivity {
             widgetPref = new BatteryWidgetPref();
             setUpViews();
             renderBatteryWidget();
+            return true;
         } else if (item.getItemId() == R.id.id_share) {
             ShareUtil.share(this);
+            return true;
+        } else if (item.getItemId() == R.id.id_advance) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

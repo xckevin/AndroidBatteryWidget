@@ -1,0 +1,9 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/app_name">
+        <SwitchPreferenceCompat
+            app:key="setting_show_in_notification"
+            app:title="@string/setting_show_in_notification" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
