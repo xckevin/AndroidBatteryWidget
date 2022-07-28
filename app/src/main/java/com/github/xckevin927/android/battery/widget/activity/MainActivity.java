@@ -4,8 +4,11 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -65,6 +68,13 @@ public class MainActivity extends BaseActivity {
     private SwitchMaterial bgProgressSwitch;
     private RangeSlider lineSlider;
 
+    private final BroadcastReceiver batteryChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            renderBatteryWidget();
+        }
+    };
+
     private final Runnable renderTask = () -> {
         Bitmap bitmap = Utils.generateBatteryBitmap(this, BatteryUtil.getBatteryState(this), widgetPref);
         widgetPreviewImage.setImageBitmap(bitmap);
@@ -92,6 +102,13 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         renderBatteryWidget();
+        registerReceiver(batteryChangedReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(batteryChangedReceiver);
     }
 
     private void initViews() {
