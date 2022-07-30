@@ -7,7 +7,7 @@
     <string name="show_wallpaper">Show Wallpaper</string>
     <string name="show_background">Show Background</string>
     <string name="background_color">Background Color: %s</string>
-    <string name="background_color_dark_model">Background Color In Dark: %s</string>
+    <string name="background_color_dark_model">Background Color(Dark Mode): %s</string>
     <string name="round">Round: %d</string>
     <string name="round_size">Round Size</string>
     <string name="progress_settings">Progress Settings</string>
@@ -17,6 +17,7 @@
     <string name="save_and_add_widget">Save And Add Widget</string>
     <string name="background_settings">Background Settings</string>
     <string name="choose_color">Choose Color</string>
+
     <string name="menu_restore_default">Restore Default</string>
     <string name="menu_share">Share</string>
     <string name="menu_feedback">Feedback</string>
