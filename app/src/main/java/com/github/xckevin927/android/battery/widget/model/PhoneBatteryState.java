@@ -4,12 +4,10 @@ public class PhoneBatteryState {
 
     private boolean isUsbCharge;
     private boolean isAcCharge;
+    private boolean isWirelessCharge;
+
     private boolean isInPowerSaveMode;
     private int level;
-
-    public static Builder builder() {
-        return new Builder();
-    }
 
     public boolean isUsbCharge() {
         return isUsbCharge;
@@ -27,43 +25,27 @@ public class PhoneBatteryState {
         return level;
     }
 
-    public static final class Builder {
-        private boolean isUsbCharge;
-        private boolean isAcCharge;
-        private boolean isInPowerSaveMode;
-        private int level;
+    public boolean isWirelessCharge() {
+        return isWirelessCharge;
+    }
 
-        private Builder() {
-        }
+    public void setUsbCharge(boolean usbCharge) {
+        isUsbCharge = usbCharge;
+    }
 
+    public void setAcCharge(boolean acCharge) {
+        isAcCharge = acCharge;
+    }
 
-        public Builder withUsbCharge(boolean isUsbCharge) {
-            this.isUsbCharge = isUsbCharge;
-            return this;
-        }
+    public void setWirelessCharge(boolean wirelessCharge) {
+        isWirelessCharge = wirelessCharge;
+    }
 
-        public Builder withAcCharge(boolean isAcCharge) {
-            this.isAcCharge = isAcCharge;
-            return this;
-        }
+    public void setInPowerSaveMode(boolean inPowerSaveMode) {
+        isInPowerSaveMode = inPowerSaveMode;
+    }
 
-        public Builder withPowerSaveMode(boolean isInPowerSaveMode) {
-            this.isInPowerSaveMode = isInPowerSaveMode;
-            return this;
-        }
-
-        public Builder withLevel(int level) {
-            this.level = level;
-            return this;
-        }
-
-        public PhoneBatteryState build() {
-            PhoneBatteryState batteryState = new PhoneBatteryState();
-            batteryState.isAcCharge = this.isAcCharge;
-            batteryState.isInPowerSaveMode = this.isInPowerSaveMode;
-            batteryState.level = this.level;
-            batteryState.isUsbCharge = this.isUsbCharge;
-            return batteryState;
-        }
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

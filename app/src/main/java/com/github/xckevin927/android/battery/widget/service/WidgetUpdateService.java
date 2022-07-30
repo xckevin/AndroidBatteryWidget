@@ -103,7 +103,6 @@ public class WidgetUpdateService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        createNotificationChannel();
         if (needShowBatteryInStatus()) {
             showBatteryNotification();
         } else {
@@ -135,18 +134,6 @@ public class WidgetUpdateService extends Service {
                 .getBoolean(Constants.SettingsKey.KEY_SHOW_IN_STATUS_BAR, false);
     }
 
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-            NotificationChannelCompat channelCompat = new NotificationChannelCompat.Builder(Constants.NOTIFICATION_CHANNEL_ID, NotificationManager.IMPORTANCE_DEFAULT)
-                    .setName(getString(R.string.notification_channel_title))
-                    .setDescription(getString(R.string.notification_channel_desc))
-                    .setShowBadge(false)
-                    .build();
-            notificationManagerCompat.createNotificationChannel(channelCompat);
-        }
-    }
-
     private void showBatteryNotification() {
         BatteryWidgetPref pref = BatteryWidgetPrefHelper.getDefaultWidgetPref();
         pref.setShowBackground(false);
@@ -156,6 +143,8 @@ public class WidgetUpdateService extends Service {
 
 
         Notification notification = new NotificationCompat.Builder(getApplicationContext(), Constants.NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(getString(R.string.notification_indicator_title))
+                .setContentText(getString(R.string.notification_indicator_content, phoneBatteryState.getLevel() + "%"))
                 .setLargeIcon(Utils.generateBatteryBitmap(getApplicationContext(), phoneBatteryState, pref))
                 .setSmallIcon(getApplicationContext().getResources().getIdentifier("white_round_" + phoneBatteryState.getLevel(), "drawable", getPackageName()))
                 .setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
