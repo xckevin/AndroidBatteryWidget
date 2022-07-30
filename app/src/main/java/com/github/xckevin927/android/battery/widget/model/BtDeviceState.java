@@ -7,15 +7,18 @@ public class BtDeviceState {
     private String alias;
     private int type;
     private int batteryLevel;
-    private boolean bond;
+    private int deviceClass;
+    private boolean connected;
 
-    private BtDeviceState(String addr, String name, String alias, int type, int batteryLevel, boolean bond) {
+    private BtDeviceState(String addr, String name, String alias, int type, int batteryLevel,
+                          int deviceClass, boolean connected) {
         this.addr = addr;
         this.name = name;
         this.alias = alias;
         this.type = type;
         this.batteryLevel = batteryLevel;
-        this.bond = bond;
+        this.deviceClass = deviceClass;
+        this.connected = connected;
     }
 
     public String getAddr() {
@@ -38,8 +41,12 @@ public class BtDeviceState {
         return batteryLevel;
     }
 
-    public boolean isBond() {
-        return bond;
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public int getDeviceClass() {
+        return deviceClass;
     }
 
     @Override
@@ -50,7 +57,8 @@ public class BtDeviceState {
                 ", alias='" + alias + '\'' +
                 ", type=" + Integer.toHexString(type) +
                 ", batteryLevel=" + batteryLevel +
-                ", bond=" + bond +
+                ", deviceClass=" + Integer.toHexString(deviceClass) +
+                ", connected=" + connected +
                 '}';
     }
 
@@ -64,7 +72,8 @@ public class BtDeviceState {
         private String alias;
         private int type;
         private int batteryLevel;
-        private boolean bond;
+        private int deviceClass;
+        private boolean connected;
 
         private BtDeviceStateBuilder() {
         }
@@ -91,8 +100,13 @@ public class BtDeviceState {
             return this;
         }
 
-        public BtDeviceStateBuilder withBond(boolean bond) {
-            this.bond = bond;
+        public BtDeviceStateBuilder withDeviceClass(int deviceClass) {
+            this.deviceClass = deviceClass;
+            return this;
+        }
+
+        public BtDeviceStateBuilder withConnected(boolean connected) {
+            this.connected = connected;
             return this;
         }
 
@@ -102,7 +116,7 @@ public class BtDeviceState {
         }
 
         public BtDeviceState build() {
-            return new BtDeviceState(addr, name, alias, type, batteryLevel, bond);
+            return new BtDeviceState(addr, name, alias, type, batteryLevel, deviceClass, connected);
         }
     }
 }

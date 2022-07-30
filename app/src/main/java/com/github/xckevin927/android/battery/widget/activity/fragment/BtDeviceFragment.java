@@ -149,12 +149,14 @@ public class BtDeviceFragment extends Fragment {
             List<BtDeviceState> list = new ArrayList<>(pairedDevicesCount);
             for (BluetoothDevice device : pairedDevices) {
                 int level = ReflectUtil.invoke(device, "getBatteryLevel", new Class[0]);
+                boolean connected = ReflectUtil.invoke(device, "isConnected", new Class[0]);
 
                 BtDeviceState.BtDeviceStateBuilder builder = BtDeviceState.builder()
                         .withAddr(device.getAddress())
                         .withName(device.getName())
                         .withBatteryLevel(level)
-                        .withBond(device.getBondState() == BluetoothDevice.BOND_BONDED)
+                        .withDeviceClass(device.getBluetoothClass().getDeviceClass())
+                        .withConnected(connected)
                         .withType(device.getBluetoothClass().getMajorDeviceClass());
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
                     String alias = device.getAlias();
