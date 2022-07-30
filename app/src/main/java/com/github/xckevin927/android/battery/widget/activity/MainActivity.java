@@ -223,6 +223,8 @@ public class MainActivity extends BaseActivity {
         } else if (item.getItemId() == R.id.id_advance) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
+        } else if (item.getItemId() == R.id.id_feedback) {
+            ShareUtil.feedback(this);
         }
         return super.onOptionsItemSelected(item);
     }

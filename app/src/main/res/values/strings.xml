@@ -19,6 +19,7 @@
     <string name="choose_color">Choose Color</string>
     <string name="menu_restore_default">Restore Default</string>
     <string name="menu_share">Share</string>
+    <string name="menu_feedback">Feedback</string>
     <string name="menu_advance">Advance</string>
 
     <string name="share_title">Share</string>
