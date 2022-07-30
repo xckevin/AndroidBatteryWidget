@@ -77,7 +77,7 @@ public class Utils {
                 width - strokeWidth - indicatorIconHeight/2F,
                 height - strokeWidth - indicatorIconHeight/2F);
 
-        final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge();
+        final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge() || batteryState.isWirelessCharge();
 
         paint.setStyle(Paint.Style.STROKE);
 

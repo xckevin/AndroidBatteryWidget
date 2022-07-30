@@ -22,22 +22,21 @@ public class BatteryUtil {
         int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
         boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
         boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+        boolean wirelessCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_WIRELESS;
+
+        PhoneBatteryState phoneBatteryState = new PhoneBatteryState();
+        phoneBatteryState.setAcCharge(acCharge);
+        phoneBatteryState.setUsbCharge(usbCharge);
+        phoneBatteryState.setWirelessCharge(wirelessCharge);
 
         int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-
-        float batteryPct = level * 100 / (float)scale;
+        float batteryPct = level * 100F / scale;
+        phoneBatteryState.setLevel((int) batteryPct);
 
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        phoneBatteryState.setInPowerSaveMode(powerManager.isPowerSaveMode());
 
-        return PhoneBatteryState.builder()
-                .withAcCharge(acCharge)
-                .withUsbCharge(usbCharge)
-                .withLevel((int) batteryPct)
-                .withPowerSaveMode(powerManager.isPowerSaveMode())
-                .build();
-
-//        int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-//        return plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
+        return phoneBatteryState;
     }
 }
