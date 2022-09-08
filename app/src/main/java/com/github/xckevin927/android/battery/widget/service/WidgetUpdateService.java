@@ -154,7 +154,12 @@ public class WidgetUpdateService extends Service {
                 .setShowWhen(false)
                 .setOngoing(true)
                 .build();
-        startForeground(NOTIFICATION_ID, notification);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(NOTIFICATION_ID, notification);
+        } else {
+            startForeground(NOTIFICATION_ID, notification);
+        }
     }
 
     private void cancelBatteryNotification() {

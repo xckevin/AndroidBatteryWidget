@@ -48,13 +48,15 @@ public class Utils {
 
 
     public static Bitmap generateBatteryBitmap(Context context, PhoneBatteryState batteryState, BatteryWidgetPref widgetPref) {
+        final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge() || batteryState.isWirelessCharge();
+
         final int width = 800;
         final int height = 800;
         final float density = context.getResources().getDisplayMetrics().density;
         final float strokeWidth = widgetPref.getLineWidth() * density;
 
         final Bitmap indicatorIcon = BitmapFactory.decodeResource(context.getResources(),
-                batteryState.isInPowerSaveMode() ? R.drawable.battery_saver : R.drawable.lightning);
+                isCharging ? R.drawable.lightning : R.drawable.battery_saver);
         final int indicatorIconHeight = indicatorIcon.getHeight();
 
         Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -77,7 +79,6 @@ public class Utils {
                 width - strokeWidth - indicatorIconHeight/2F,
                 height - strokeWidth - indicatorIconHeight/2F);
 
-        final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge() || batteryState.isWirelessCharge();
 
         paint.setStyle(Paint.Style.STROKE);
 
