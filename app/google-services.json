@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1024466276824",
+    "project_id": "androidbatteryindicator",
+    "storage_bucket": "androidbatteryindicator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024466276824:android:7170b25e68d6b91f4362ad",
+        "android_client_info": {
+          "package_name": "com.github.xckevin927.android.battery.widget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024466276824-8825tcvt98vmlrqt8f7cjgl094cq8u6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9NdVeS0Ln4TIZz4fGgMfQwqdbnif7kE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024466276824-8825tcvt98vmlrqt8f7cjgl094cq8u6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
