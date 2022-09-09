@@ -34,5 +34,5 @@
     <string name="notification_channel_desc">Show Battery Indicator In Status Bar</string>
     <string name="notification_enable_notice">To use this ability, you need to Allow Notifications to be turned on. Going to Settings now?</string>
     <string name="notification_indicator_title">Battery Indicator</string>
-    <string name="notification_indicator_content">remain: %s</string>
+    <string name="notification_indicator_content">current remain: %s</string>
 </resources>
