@@ -1,0 +1,11 @@
+name: Test Build Action
+on: [push]
+jobs:
+  build-job:
+    name: Build Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Build Android project"
+        uses: vgaidarji/android-github-actions-build@v1.0.1
+        with:
+          args: "./gradlew assembleDebug"
