@@ -2,8 +2,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:background="#f3f3f3"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -22,15 +22,15 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_below="@id/img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/img"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/text_margin"
-            android:maxLines="1"
             android:ellipsize="end"
-            tools:text="@string/app_name"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="@string/app_name" />
 
 
         <TextView
@@ -57,11 +57,12 @@
             android:layout_alignParentEnd="true"
             android:layout_height="wrap_content" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/state"
-            android:layout_width="4dp"
+            android:layout_width="8dp"
             android:layout_margin="@dimen/common_margin"
+            app:shapeAppearance="@style/roundedCornerStyle"
             android:background="@color/black"
-            android:layout_height="4dp" />
+            android:layout_height="8dp" />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

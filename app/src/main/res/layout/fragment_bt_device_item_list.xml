@@ -2,30 +2,32 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f3f3f3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/id_action_fragment_bt"
-        style="@style/TextAppearance.MaterialComponents.Body2"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:background="#ccc"
+        android:padding="@dimen/common_margin"
+        android:background="#e3e3e3"
         android:gravity="center_vertical"
-        android:drawableEnd="@drawable/battery_saver"
-        android:text="Open Bt Perermiss"
+        android:drawablePadding="@dimen/common_margin"
+        android:text="Open Bt Permission"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableEndCompat="@drawable/ic_info_fill"
+        app:drawableTint="@color/light_blue_900" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/id_list_fragment_bt"
         android:name="com.github.xckevin927.android.battery.widget.activity.BtDeviceFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_margin"
-        android:layout_marginRight="@dimen/common_margin"
-        app:layoutManager="LinearLayoutManager"
+        android:layout_margin="@dimen/common_margin"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         app:layout_constraintTop_toBottomOf="@id/id_action_fragment_bt"
         tools:context=".activity.fragment.BtDeviceFragment"

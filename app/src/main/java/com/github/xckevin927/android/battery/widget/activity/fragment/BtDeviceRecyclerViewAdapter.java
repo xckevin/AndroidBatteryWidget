@@ -1,11 +1,10 @@
 package com.github.xckevin927.android.battery.widget.activity.fragment;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.databinding.FragmentBtDeviceBinding;
@@ -53,7 +52,17 @@ public class BtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<BtDeviceRe
             binding.level.setText(deviceState.getBatteryLevel() + "%");
             binding.type.setText(Integer.toHexString(deviceState.getType()));
             binding.checkbox.setChecked(new Random().nextBoolean());
-            binding.state.setBackgroundColor(new Random().nextInt());
+            binding.state.setBackgroundColor(getBtDeviceIndicatorColor(deviceState));
+        }
+
+        private int getBtDeviceIndicatorColor(BtDeviceState deviceState) {
+            if (deviceState.getBatteryLevel() >= 0) {
+                return ContextCompat.getColor(binding.getRoot().getContext(), R.color.bt_state_active);
+            }
+            if (deviceState.isConnected()) {
+                return ContextCompat.getColor(binding.getRoot().getContext(), R.color.bt_state_connected);
+            }
+            return ContextCompat.getColor(binding.getRoot().getContext(), R.color.bt_state_unconnected);
         }
 
     }

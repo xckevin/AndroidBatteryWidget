@@ -35,4 +35,6 @@
     <string name="notification_enable_notice">To use this ability, you need to Allow Notifications to be turned on. Going to Settings now?</string>
     <string name="notification_indicator_title">Battery Indicator</string>
     <string name="notification_indicator_content">current remain: %s</string>
+    <string name="open_bt_permission">allow bluetooth permission to get device</string>
+    <string name="open_bt">open bluetooth to get device</string>
 </resources>

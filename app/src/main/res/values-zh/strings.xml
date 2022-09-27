@@ -35,4 +35,7 @@
     <string name="notification_enable_notice">要使用这个功能，需要开启权限，是否现在设置?</string>
     <string name="notification_indicator_title">电量指示器</string>
     <string name="notification_indicator_content">当前电量: %s</string>
+
+    <string name="open_bt_permission">开启蓝牙权限</string>
+    <string name="open_bt">打开蓝牙</string>
 </resources>

@@ -126,7 +126,7 @@ public class BtDeviceFragment extends Fragment {
         }
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             actionText.setVisibility(View.VISIBLE);
-            actionText.setText("get permission to get device");
+            actionText.setText(R.string.open_bt_permission);
             actionText.setOnClickListener(v -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     btPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT);
@@ -137,7 +137,7 @@ public class BtDeviceFragment extends Fragment {
 
         if (!bluetoothAdapter.isEnabled()) {
             actionText.setVisibility(View.VISIBLE);
-            actionText.setText("get permission to get device");
+            actionText.setText(R.string.open_bt);
             actionText.setOnClickListener(v -> btOpenLauncher.launch(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)));
             return;
         }
