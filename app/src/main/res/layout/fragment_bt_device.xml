@@ -1,23 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
+    android:background="#f3f3f3"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/item_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        tools:text="@string/app_name"
-        android:textAppearance="?attr/textAppearanceListItem" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/common_margin"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="@string/app_name"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="@dimen/common_margin"
+            android:layout_centerHorizontal="true"
+            tools:src="@drawable/ic_bluetoothon" />
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_below="@id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/text_margin"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="@string/app_name"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+
+        <TextView
+            android:id="@+id/level"
+            android:layout_below="@id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            tools:text="@string/app_name"
+            android:textAppearance="?attr/textAppearanceListItemSecondary" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_below="@id/level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            tools:text="@string/app_name"
+            android:textAppearance="?attr/textAppearanceListItemSmall" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/state"
+            android:layout_width="4dp"
+            android:layout_margin="@dimen/common_margin"
+            android:background="@color/black"
+            android:layout_height="4dp" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

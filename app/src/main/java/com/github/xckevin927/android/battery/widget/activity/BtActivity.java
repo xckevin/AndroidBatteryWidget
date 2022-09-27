@@ -31,7 +31,7 @@ public class BtActivity extends BaseActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.id_content_activity_bt, BtDeviceFragment.newInstance(1))
+                    .replace(R.id.id_content_activity_bt, BtDeviceFragment.newInstance(2))
                     .commit();
         }
     }

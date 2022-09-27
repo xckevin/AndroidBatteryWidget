@@ -23,9 +23,10 @@
         android:name="com.github.xckevin927.android.battery.widget.activity.BtDeviceFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="@dimen/common_margin"
+        android:layout_marginRight="@dimen/common_margin"
         app:layoutManager="LinearLayoutManager"
+        app:spanCount="2"
         app:layout_constraintTop_toBottomOf="@id/id_action_fragment_bt"
         tools:context=".activity.fragment.BtDeviceFragment"
         tools:listitem="@layout/fragment_bt_device" />

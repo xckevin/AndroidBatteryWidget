@@ -28,7 +28,10 @@ import android.widget.TextView;
 
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.model.BtDeviceState;
+import com.github.xckevin927.android.battery.widget.ui.GridSpaceItemDecoration;
+import com.github.xckevin927.android.battery.widget.ui.SpacesItemDecoration;
 import com.github.xckevin927.android.battery.widget.utils.ReflectUtil;
+import com.github.xckevin927.android.battery.widget.utils.UiUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,8 +104,11 @@ public class BtDeviceFragment extends Fragment {
 
         if (mColumnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.addItemDecoration(new SpacesItemDecoration(UiUtil.dp2px(recyclerView.getContext(), 8)));
         } else {
+            int margin = UiUtil.dp2px(recyclerView.getContext(), 8);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), mColumnCount));
+            recyclerView.addItemDecoration(new GridSpaceItemDecoration(mColumnCount, margin, margin));
         }
         return view;
     }
@@ -148,8 +154,9 @@ public class BtDeviceFragment extends Fragment {
             recyclerView.setVisibility(View.VISIBLE);
             List<BtDeviceState> list = new ArrayList<>(pairedDevicesCount);
             for (BluetoothDevice device : pairedDevices) {
-                int level = ReflectUtil.invoke(device, "getBatteryLevel", new Class[0]);
-                boolean connected = ReflectUtil.invoke(device, "isConnected", new Class[0]);
+                Integer levelBox = ReflectUtil.invoke(device, "getBatteryLevel", new Class[0]);
+                int level = levelBox == null ? -1 : levelBox;
+                boolean connected = Boolean.TRUE.equals(ReflectUtil.invoke(device, "isConnected", new Class[0]));
 
                 BtDeviceState.BtDeviceStateBuilder builder = BtDeviceState.builder()
                         .withAddr(device.getAddress())

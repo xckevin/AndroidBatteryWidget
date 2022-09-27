@@ -4,12 +4,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.databinding.FragmentBtDeviceBinding;
 import com.github.xckevin927.android.battery.widget.model.BtDeviceState;
 
 import java.util.List;
+import java.util.Random;
 
 public class BtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<BtDeviceRecyclerViewAdapter.ViewHolder> {
 
@@ -28,9 +31,7 @@ public class BtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<BtDeviceRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getName());
-        holder.mContentView.setText(mValues.get(position).toString());
+        holder.bindData(mValues.get(position));
     }
 
     @Override
@@ -39,19 +40,21 @@ public class BtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<BtDeviceRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public BtDeviceState mItem;
+        public final FragmentBtDeviceBinding binding;
 
         public ViewHolder(FragmentBtDeviceBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+            this.binding = binding;
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+        public void bindData(BtDeviceState deviceState) {
+            binding.img.setImageResource(R.drawable.ic_bluetoothon);
+            binding.name.setText(deviceState.getName());
+            binding.level.setText(deviceState.getBatteryLevel() + "%");
+            binding.type.setText(Integer.toHexString(deviceState.getType()));
+            binding.checkbox.setChecked(new Random().nextBoolean());
+            binding.state.setBackgroundColor(new Random().nextInt());
         }
+
     }
 }
