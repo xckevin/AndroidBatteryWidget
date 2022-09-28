@@ -52,4 +52,7 @@
     <string name="bluetooth_talkback_input_peripheral">Input Peripheral</string>
     <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=5615463912185280812] -->
     <string name="bluetooth_talkback_bluetooth">Bluetooth</string>
+
+    <string name="tab_widget">Widget</string>
+    <string name="tab_bt">Bluetooth</string>
 </resources>

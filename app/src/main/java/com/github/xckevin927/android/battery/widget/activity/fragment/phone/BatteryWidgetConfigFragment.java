@@ -87,6 +87,10 @@ public class BatteryWidgetConfigFragment extends Fragment {
         widgetPreviewImage.setImageBitmap(bitmap);
     };
 
+    public static BatteryWidgetConfigFragment newInstance() {
+        return new BatteryWidgetConfigFragment();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

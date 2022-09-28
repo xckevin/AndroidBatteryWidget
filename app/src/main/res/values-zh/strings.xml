@@ -53,4 +53,7 @@
     <string name="bluetooth_talkback_input_peripheral">输入设备</string>
     <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=5615463912185280812] -->
     <string name="bluetooth_talkback_bluetooth">蓝牙</string>
+
+    <string name="tab_widget">小挂件</string>
+    <string name="tab_bt">蓝牙</string>
 </resources>
