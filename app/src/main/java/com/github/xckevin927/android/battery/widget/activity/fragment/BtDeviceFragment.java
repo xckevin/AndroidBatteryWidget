@@ -124,14 +124,10 @@ public class BtDeviceFragment extends Fragment {
         if (context == null) {
             return;
         }
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             actionText.setVisibility(View.VISIBLE);
             actionText.setText(R.string.open_bt_permission);
-            actionText.setOnClickListener(v -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    btPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT);
-                }
-            });
+            actionText.setOnClickListener(v -> btPermissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT));
             return;
         }
 
@@ -158,18 +154,7 @@ public class BtDeviceFragment extends Fragment {
                 int level = levelBox == null ? -1 : levelBox;
                 boolean connected = Boolean.TRUE.equals(ReflectUtil.invoke(device, "isConnected", new Class[0]));
 
-                BtDeviceState.BtDeviceStateBuilder builder = BtDeviceState.builder()
-                        .withAddr(device.getAddress())
-                        .withName(device.getName())
-                        .withBatteryLevel(level)
-                        .withDeviceClass(device.getBluetoothClass().getDeviceClass())
-                        .withConnected(connected)
-                        .withType(device.getBluetoothClass().getMajorDeviceClass());
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-                    String alias = device.getAlias();
-                    builder.withAlias(alias);
-                }
-                list.add(builder.build());
+                list.add(new BtDeviceState(device, level, connected));
             }
             recyclerView.setAdapter(new BtDeviceRecyclerViewAdapter(list));
         } else {

@@ -1,5 +1,9 @@
 package com.github.xckevin927.android.battery.widget.activity.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.databinding.FragmentBtDeviceBinding;
 import com.github.xckevin927.android.battery.widget.model.BtDeviceState;
+import com.github.xckevin927.android.battery.widget.utils.BtUtil;
 
 import java.util.List;
 import java.util.Random;
@@ -46,24 +51,25 @@ public class BtDeviceRecyclerViewAdapter extends RecyclerView.Adapter<BtDeviceRe
             this.binding = binding;
         }
 
+        @SuppressLint("MissingPermission")
         public void bindData(BtDeviceState deviceState) {
-            binding.img.setImageResource(R.drawable.ic_bluetoothon);
-            binding.name.setText(deviceState.getName());
-            binding.level.setText(deviceState.getBatteryLevel() + "%");
-            binding.type.setText(Integer.toHexString(deviceState.getType()));
+//            binding.img.setImageResource(R.drawable.ic_bluetoothon);
+            binding.name.setText(deviceState.getBluetoothDevice().getName());
+            if (deviceState.getBatteryLevel() >= 0) {
+                binding.level.setText(deviceState.getBatteryLevel() + "%");
+                binding.level.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_battery, 0, 0, 0);
+            } else {
+                binding.level.setText("-");
+                binding.level.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            }
+            Pair<Drawable, String> info = BtUtil.getBtClassDrawableWithDescription(binding.getRoot().getContext(), deviceState.getBluetoothDevice());
+            binding.img.setImageDrawable(info.first);
+            binding.type.setText(info.second);
             binding.checkbox.setChecked(new Random().nextBoolean());
-            binding.state.setBackgroundColor(getBtDeviceIndicatorColor(deviceState));
+            binding.state.setBackgroundColor(BtUtil.getBtDeviceIndicatorColor(binding.getRoot().getContext(), deviceState));
         }
 
-        private int getBtDeviceIndicatorColor(BtDeviceState deviceState) {
-            if (deviceState.getBatteryLevel() >= 0) {
-                return ContextCompat.getColor(binding.getRoot().getContext(), R.color.bt_state_active);
-            }
-            if (deviceState.isConnected()) {
-                return ContextCompat.getColor(binding.getRoot().getContext(), R.color.bt_state_connected);
-            }
-            return ContextCompat.getColor(binding.getRoot().getContext(), R.color.bt_state_unconnected);
-        }
+
 
     }
 }

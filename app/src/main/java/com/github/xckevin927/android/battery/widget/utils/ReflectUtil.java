@@ -29,7 +29,7 @@ public class ReflectUtil {
             }
         } else {
             try {
-                Method metaGetDeclaredMethod = Class.class.getDeclaredMethod("getDeclardMethod");
+                Method metaGetDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod");
                 Method hiddenMethod = (Method) metaGetDeclaredMethod.invoke(obj.getClass(), method, parameters);
                 return (T) hiddenMethod.invoke(obj, args);
             } catch (Exception e) {
