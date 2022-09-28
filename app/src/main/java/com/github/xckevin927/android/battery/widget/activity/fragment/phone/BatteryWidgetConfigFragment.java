@@ -102,7 +102,8 @@ public class BatteryWidgetConfigFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        setHasOptionsMenu(true);
+        View view = inflater.inflate(R.layout.fragment_battery_widget_config, container, false);
 
         initViews(view);
         setUpViews();
