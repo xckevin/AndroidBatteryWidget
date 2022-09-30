@@ -35,4 +35,24 @@
     <string name="notification_enable_notice">To use this ability, you need to Allow Notifications to be turned on. Going to Settings now?</string>
     <string name="notification_indicator_title">Battery Indicator</string>
     <string name="notification_indicator_content">current remain: %s</string>
+    <string name="open_bt_permission">Allow bluetooth permission to get device</string>
+    <string name="open_bt">Open bluetooth to get device</string>
+
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=4875089335641234463] -->
+    <string name="bluetooth_talkback_computer">Computer</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=5140152177885220949] -->
+    <string name="bluetooth_talkback_headset">Headset</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=4260255181240622896] -->
+    <string name="bluetooth_talkback_phone">Phone</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=551146170554589119] -->
+    <string name="bluetooth_talkback_imaging">Imaging</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=26580326066627664] -->
+    <string name="bluetooth_talkback_headphone">Headphone</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=5165842622743212268] -->
+    <string name="bluetooth_talkback_input_peripheral">Input Peripheral</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=5615463912185280812] -->
+    <string name="bluetooth_talkback_bluetooth">Bluetooth</string>
+
+    <string name="tab_widget">Widget</string>
+    <string name="tab_bt">Bluetooth</string>
 </resources>

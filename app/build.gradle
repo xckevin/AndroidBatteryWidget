@@ -11,8 +11,8 @@ android {
         applicationId "com.github.xckevin927.android.battery.widget"
         minSdk 21
         targetSdk 32
-        versionCode 12
-        versionName "1.2"
+        versionCode 20
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,6 +43,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     // firebase
     implementation platform('com.google.firebase:firebase-bom:30.3.1')
@@ -52,4 +54,5 @@ dependencies {
     // third-part lib
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation 'com.alibaba:fastjson:1.1.72.android'
+    implementation 'com.github.tiann:FreeReflection:3.1.0'
 }

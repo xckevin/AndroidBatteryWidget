@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/light_blue_800</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
+        <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
         <item name="android:statusBarColor" tools:targetApi="l">@color/light_blue_600</item>
         <!-- Customize your theme here. -->
     </style>
@@ -30,5 +30,19 @@
         <item name="appWidgetPadding">2dp</item>
         <item name="android:background">@android:color/transparent</item>
 
+    </style>
+
+    <style name="Theme.AndroidBatteryWidget.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.AndroidBatteryWidget.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.AndroidBatteryWidget.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ToolBarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:itemBackground">#fff</item>
+        <item name="android:textColor">#333</item>
     </style>
 </resources>

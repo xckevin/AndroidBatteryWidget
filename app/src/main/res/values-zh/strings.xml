@@ -35,4 +35,25 @@
     <string name="notification_enable_notice">要使用这个功能，需要开启权限，是否现在设置?</string>
     <string name="notification_indicator_title">电量指示器</string>
     <string name="notification_indicator_content">当前电量: %s</string>
+
+    <string name="open_bt_permission">点击允许蓝牙权限</string>
+    <string name="open_bt">点击打开蓝牙</string>
+
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=4875089335641234463] -->
+    <string name="bluetooth_talkback_computer">电脑</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=5140152177885220949] -->
+    <string name="bluetooth_talkback_headset">耳机</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=4260255181240622896] -->
+    <string name="bluetooth_talkback_phone">手机</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=551146170554589119] -->
+    <string name="bluetooth_talkback_imaging">打印机</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=26580326066627664] -->
+    <string name="bluetooth_talkback_headphone">耳机</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=5165842622743212268] -->
+    <string name="bluetooth_talkback_input_peripheral">输入设备</string>
+    <!-- Message for telling the user the kind of BT device being displayed in list. [CHAR LIMIT=30 BACKUP_MESSAGE_ID=5615463912185280812] -->
+    <string name="bluetooth_talkback_bluetooth">蓝牙</string>
+
+    <string name="tab_widget">小挂件</string>
+    <string name="tab_bt">蓝牙</string>
 </resources>

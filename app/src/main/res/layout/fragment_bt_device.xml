@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/common_margin"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="@dimen/common_margin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/common_margin"
+            app:tint="@color/light_blue_500"
+            tools:src="@drawable/ic_bluetoothon" />
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/text_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="@string/app_name" />
+
+
+        <TextView
+            android:id="@+id/level"
+            android:layout_below="@id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:drawableStart="@drawable/ic_battery"
+            tools:text="99%"
+            android:textAppearance="?attr/textAppearanceListItemSecondary" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_below="@id/level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            tools:text="Headset Mirco phone"
+            android:textAppearance="?attr/textAppearanceListItemSmall" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_alignParentEnd="true" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/state"
+            android:layout_width="8dp"
+            android:layout_margin="@dimen/common_margin"
+            app:shapeAppearance="@style/roundedCornerStyle"
+            android:background="@color/black"
+            android:layout_height="8dp" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
