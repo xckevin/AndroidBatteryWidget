@@ -234,14 +234,6 @@ public class BatteryWidgetConfigFragment extends Fragment {
             setUpViews();
             renderBatteryWidget();
             return true;
-        } else if (item.getItemId() == R.id.id_share) {
-            ShareUtil.share(getActivity());
-            return true;
-        } else if (item.getItemId() == R.id.id_advance) {
-            startActivity(new Intent(getActivity(), SettingsActivity.class));
-            return true;
-        } else if (item.getItemId() == R.id.id_feedback) {
-            ShareUtil.feedback(getActivity());
         }
         return super.onOptionsItemSelected(item);
     }
