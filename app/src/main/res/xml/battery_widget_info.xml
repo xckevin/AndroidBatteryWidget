@@ -8,6 +8,7 @@
     android:previewImage="@drawable/single_widget_preview"
     android:previewLayout="@layout/battery_widget"
     android:resizeMode="horizontal|vertical"
+    android:configure="com.github.xckevin927.android.battery.widget.activity.MainActivity"
     android:targetCellWidth="1"
     android:targetCellHeight="1"
     android:updatePeriodMillis="60000"
