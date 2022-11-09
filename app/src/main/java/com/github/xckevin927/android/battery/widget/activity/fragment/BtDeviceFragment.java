@@ -119,6 +119,14 @@ public class BtDeviceFragment extends Fragment {
         refreshViews();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            refreshViews();
+        }
+    }
+
     private void refreshViews() {
         Context context = getContext();
         if (context == null) {
