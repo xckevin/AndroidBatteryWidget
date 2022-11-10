@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,8 +28,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.xckevin927.android.battery.widget.App;
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.model.BtDeviceState;
+import com.github.xckevin927.android.battery.widget.repo.BatteryRepo;
 import com.github.xckevin927.android.battery.widget.ui.GridSpaceItemDecoration;
 import com.github.xckevin927.android.battery.widget.ui.SpacesItemDecoration;
 import com.github.xckevin927.android.battery.widget.utils.ReflectUtil;
@@ -79,7 +83,8 @@ public class BtDeviceFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothManager bluetoothManager = (BluetoothManager) App.getAppContext().getSystemService(Context.BLUETOOTH_SERVICE);
+        bluetoothAdapter = bluetoothManager.getAdapter();
 
         btPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
             if (result != null && result) {
@@ -151,19 +156,10 @@ public class BtDeviceFragment extends Fragment {
 
     @SuppressLint("MissingPermission")
     private void renderBtList() {
-        final Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-        final int pairedDevicesCount = pairedDevices.size();
-        if (pairedDevicesCount > 0) {
+        List<BtDeviceState> list = BatteryRepo.INSTANCE.getBtDeviceStates();
+        if (list.size() > 0) {
             tipsText.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
-            List<BtDeviceState> list = new ArrayList<>(pairedDevicesCount);
-            for (BluetoothDevice device : pairedDevices) {
-                Integer levelBox = ReflectUtil.invoke(device, "getBatteryLevel", new Class[0]);
-                int level = levelBox == null ? -1 : levelBox;
-                boolean connected = Boolean.TRUE.equals(ReflectUtil.invoke(device, "isConnected", new Class[0]));
-
-                list.add(new BtDeviceState(device, level, connected));
-            }
             recyclerView.setAdapter(new BtDeviceRecyclerViewAdapter(list));
         } else {
             tipsText.setVisibility(View.VISIBLE);

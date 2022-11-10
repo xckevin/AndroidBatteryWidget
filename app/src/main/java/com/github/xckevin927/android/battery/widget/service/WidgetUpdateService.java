@@ -1,5 +1,16 @@
 package com.github.xckevin927.android.battery.widget.service;
 
+import com.github.xckevin927.android.battery.widget.Constants;
+import com.github.xckevin927.android.battery.widget.R;
+import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
+import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState;
+import com.github.xckevin927.android.battery.widget.receiver.BatteryChangeReceiver;
+import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
+import com.github.xckevin927.android.battery.widget.receiver.PhoneStatusChangeReceiver;
+import com.github.xckevin927.android.battery.widget.repo.BatteryRepo;
+import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
+import com.github.xckevin927.android.battery.widget.utils.Utils;
+
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -13,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -24,22 +34,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
-
-import com.github.xckevin927.android.battery.widget.Constants;
-import com.github.xckevin927.android.battery.widget.R;
-import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
-import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState;
-import com.github.xckevin927.android.battery.widget.receiver.BatteryChangeReceiver;
-import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
-import com.github.xckevin927.android.battery.widget.receiver.PhoneStatusChangeReceiver;
-import com.github.xckevin927.android.battery.widget.utils.BatteryUtil;
-import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
-import com.github.xckevin927.android.battery.widget.utils.Utils;
 
 public class WidgetUpdateService extends Service {
 
@@ -139,7 +136,7 @@ public class WidgetUpdateService extends Service {
         pref.setShowBackground(false);
         pref.setShowBackgroundProgress(false);
 
-        PhoneBatteryState phoneBatteryState = BatteryUtil.getBatteryState(getApplicationContext());
+        PhoneBatteryState phoneBatteryState = BatteryRepo.INSTANCE.getBatteryState();
 
 
         Notification notification = new NotificationCompat.Builder(getApplicationContext(), Constants.NOTIFICATION_CHANNEL_ID)

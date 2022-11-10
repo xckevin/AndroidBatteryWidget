@@ -3,10 +3,11 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'org.jetbrains.kotlin.android'
+    id 'project-report'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.github.xckevin927.android.battery.widget"
@@ -57,4 +58,8 @@ dependencies {
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation 'com.alibaba:fastjson:1.1.72.android'
     implementation 'com.github.tiann:FreeReflection:3.1.0'
+}
+
+configurations.implementation {
+    exclude group: 'androidx.lifecycle', module: 'lifecycle-viewmodel-ktx'
 }

@@ -1,5 +1,22 @@
 package com.github.xckevin927.android.battery.widget.activity.fragment.phone;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.slider.RangeSlider;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.github.xckevin927.android.battery.widget.App;
+import com.github.xckevin927.android.battery.widget.R;
+import com.github.xckevin927.android.battery.widget.activity.MainActivity;
+import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
+import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
+import com.github.xckevin927.android.battery.widget.repo.BatteryRepo;
+import com.github.xckevin927.android.battery.widget.utils.AFunc1;
+import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
+import com.github.xckevin927.android.battery.widget.utils.Utils;
+
 import android.Manifest;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
@@ -36,24 +53,6 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-import com.github.xckevin927.android.battery.widget.App;
-import com.github.xckevin927.android.battery.widget.R;
-import com.github.xckevin927.android.battery.widget.activity.MainActivity;
-import com.github.xckevin927.android.battery.widget.activity.SettingsActivity;
-import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
-import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
-import com.github.xckevin927.android.battery.widget.utils.AFunc1;
-import com.github.xckevin927.android.battery.widget.utils.BatteryUtil;
-import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
-import com.github.xckevin927.android.battery.widget.utils.ShareUtil;
-import com.github.xckevin927.android.battery.widget.utils.Utils;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.checkbox.MaterialCheckBox;
-import com.google.android.material.slider.RangeSlider;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-
 public class BatteryWidgetConfigFragment extends Fragment {
 
     private final Handler handler = new Handler();
@@ -83,7 +82,7 @@ public class BatteryWidgetConfigFragment extends Fragment {
     };
 
     private final Runnable renderTask = () -> {
-        Bitmap bitmap = Utils.generateBatteryBitmap(App.getAppContext(), BatteryUtil.getBatteryState(App.getAppContext()), widgetPref);
+        Bitmap bitmap = Utils.generateBatteryBitmap(App.getAppContext(), BatteryRepo.INSTANCE.getBatteryState(), widgetPref);
         widgetPreviewImage.setImageBitmap(bitmap);
     };
 
