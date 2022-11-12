@@ -43,6 +43,9 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
         </activity>
 
         <receiver
@@ -57,14 +60,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/battery_widget_info" />
         </receiver>
-
-        <activity
-            android:name=".activity.BatteryWidgetConfigureActivity"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
 
         <receiver
             android:name=".receiver.BtConnectReceiver"

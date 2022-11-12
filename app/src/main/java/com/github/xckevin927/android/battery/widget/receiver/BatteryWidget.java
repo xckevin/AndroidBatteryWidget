@@ -1,7 +1,6 @@
 package com.github.xckevin927.android.battery.widget.receiver;
 
 import com.github.xckevin927.android.battery.widget.R;
-import com.github.xckevin927.android.battery.widget.activity.BatteryWidgetConfigureActivity;
 import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState;
 import com.github.xckevin927.android.battery.widget.repo.BatteryRepo;
 import com.github.xckevin927.android.battery.widget.service.WidgetUpdateService;
@@ -20,7 +19,6 @@ import android.widget.RemoteViews;
 
 /**
  * Implementation of App Widget functionality.
- * App Widget Configuration implemented in {@link BatteryWidgetConfigureActivity BatteryWidgetConfigureActivity}
  */
 public class BatteryWidget extends AppWidgetProvider {
 
@@ -73,7 +71,7 @@ public class BatteryWidget extends AppWidgetProvider {
         // When the user deletes the widget, delete the preference associated with it.
         WidgetUpdateService.start(context.getApplicationContext());
         for (int appWidgetId : appWidgetIds) {
-            BatteryWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
+//            BatteryWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
         }
     }
 
