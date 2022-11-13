@@ -2,10 +2,12 @@ package com.github.xckevin927.android.battery.widget.service;
 
 import com.github.xckevin927.android.battery.widget.Constants;
 import com.github.xckevin927.android.battery.widget.R;
+import com.github.xckevin927.android.battery.widget.appwidget.BtWidget;
+import com.github.xckevin927.android.battery.widget.appwidget.WidgetConstants;
 import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
 import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState;
 import com.github.xckevin927.android.battery.widget.receiver.BatteryChangeReceiver;
-import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
+import com.github.xckevin927.android.battery.widget.appwidget.BatteryWidget;
 import com.github.xckevin927.android.battery.widget.receiver.PhoneStatusChangeReceiver;
 import com.github.xckevin927.android.battery.widget.repo.BatteryRepo;
 import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;
@@ -224,18 +226,23 @@ public class WidgetUpdateService extends Service {
     private void doUpdateWidget() {
         Log.i(TAG, "doUpdateWidget: ");
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
-//        appWidgetManager.updateAppWidget(new ComponentName(getApplicationContext(), MyWidgetProvider.class), remoteViews);
 
-        Intent updateIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), BatteryWidget.class));
-        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-        sendBroadcast(updateIntent);
+        updateWidgetByClass(appWidgetManager, BatteryWidget.class, WidgetConstants.TYPE_PHONE_BATTERY);
+        updateWidgetByClass(appWidgetManager, BtWidget.class, WidgetConstants.TYPE_BT_BATTERY);
 
         if (needShowBatteryInStatus()) {
             showBatteryNotification();
         } else {
             cancelBatteryNotification();
         }
+    }
+
+    private void updateWidgetByClass(AppWidgetManager appWidgetManager, Class<?> clazz, int type) {
+        Intent updateIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), clazz));
+        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        updateIntent.putExtra(WidgetConstants.EXTRA_TYPE, type);
+        sendBroadcast(updateIntent);
     }
 
 

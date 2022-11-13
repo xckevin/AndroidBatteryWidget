@@ -55,4 +55,6 @@
 
     <string name="tab_widget">Widget</string>
     <string name="tab_bt">Bluetooth</string>
+
+    <string name="no_item">No Item</string>
 </resources>

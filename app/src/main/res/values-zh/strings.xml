@@ -56,4 +56,6 @@
 
     <string name="tab_widget">小挂件</string>
     <string name="tab_bt">蓝牙</string>
+
+    <string name="no_item">无数据</string>
 </resources>

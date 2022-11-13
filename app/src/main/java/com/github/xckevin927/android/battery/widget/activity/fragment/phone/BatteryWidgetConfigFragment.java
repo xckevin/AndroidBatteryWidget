@@ -11,7 +11,7 @@ import com.github.xckevin927.android.battery.widget.App;
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.activity.MainActivity;
 import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
-import com.github.xckevin927.android.battery.widget.receiver.BatteryWidget;
+import com.github.xckevin927.android.battery.widget.appwidget.BatteryWidget;
 import com.github.xckevin927.android.battery.widget.repo.BatteryRepo;
 import com.github.xckevin927.android.battery.widget.utils.AFunc1;
 import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper;

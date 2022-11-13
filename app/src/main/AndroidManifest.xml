@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".App"
@@ -23,10 +24,28 @@
         android:testOnly="false"
         android:theme="@style/Theme.AndroidBatteryWidget"
         tools:targetApi="31">
+        <service
+            android:name=".service.BtWidgetService"
+            android:enabled="true"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="true" />
+
+        <receiver
+            android:name=".appwidget.BtWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/bt_widget_info" />
+        </receiver>
+
         <activity
             android:name=".activity.TabActivity"
-            android:theme="@style/Theme.AndroidBatteryWidget.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AndroidBatteryWidget.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,7 +68,7 @@
         </activity>
 
         <receiver
-            android:name=".receiver.BatteryWidget"
+            android:name=".appwidget.BatteryWidget"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -60,7 +79,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/battery_widget_info" />
         </receiver>
-
         <receiver
             android:name=".receiver.BtConnectReceiver"
             android:enabled="true"
