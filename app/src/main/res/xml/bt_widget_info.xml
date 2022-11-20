@@ -5,10 +5,10 @@
     android:initialLayout="@layout/bt_widget"
     android:minWidth="40dp"
     android:minHeight="40dp"
-    android:previewImage="@drawable/example_appwidget_preview"
-    android:previewLayout="@layout/bt_widget"
+    android:previewImage="@drawable/bt_widget_preview"
+    android:previewLayout="@layout/bt_widget_item"
     android:resizeMode="horizontal|vertical"
-    android:targetCellWidth="2"
+    android:targetCellWidth="1"
     android:targetCellHeight="1"
     android:updatePeriodMillis="300000"
     android:widgetCategory="home_screen|keyguard" />

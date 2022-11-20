@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/widget_item_background"
     android:padding="@dimen/small_margin">
 
@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/small_margin"
         app:tint="@color/light_blue_500"
-        tools:src="@drawable/ic_bluetoothon" />
+        android:src="@drawable/ic_bluetoothon" />
 
     <TextView
         android:id="@+id/name"
@@ -28,7 +28,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="?attr/textAppearanceListItem"
-        tools:text="@string/app_name" />
+        android:text="@string/battery_device" />
 
     <TextView
         android:id="@+id/level"
@@ -38,7 +38,7 @@
         android:layout_centerHorizontal="true"
         android:drawableStart="@drawable/ic_battery"
         android:textAppearance="?attr/textAppearanceListItemSecondary"
-        tools:text="99%" />
+        android:text="@string/_78" />
 
 </RelativeLayout>
 </RelativeLayout>

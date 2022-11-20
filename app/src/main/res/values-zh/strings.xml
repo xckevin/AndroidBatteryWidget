@@ -58,4 +58,7 @@
     <string name="tab_bt">蓝牙</string>
 
     <string name="no_item">无数据</string>
+
+    <string name="battery_device">蓝牙设备</string>
+    <string name="_78">78%</string>
 </resources>
