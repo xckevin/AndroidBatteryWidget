@@ -31,6 +31,8 @@ import androidx.core.content.ContextCompat;
 
 public class Utils {
 
+    private static final int IMAGE_SIZE = 600;
+
     public static Size getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -61,8 +63,8 @@ public class Utils {
     public static Bitmap generateBatteryBitmap(Context context, PhoneBatteryState batteryState, BatteryWidgetPref widgetPref) {
         final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge() || batteryState.isWirelessCharge();
 
-        final int width = 800;
-        final int height = 800;
+        final int width = IMAGE_SIZE;
+        final int height = IMAGE_SIZE;
         final float density = context.getResources().getDisplayMetrics().density;
         final float strokeWidth = widgetPref.getLineWidth() * density;
 
@@ -125,8 +127,8 @@ public class Utils {
     }
 
     public static Bitmap generateBtBitmap(Context context, BtDeviceState btDeviceState, BatteryWidgetPref widgetPref) {
-        final int width = 800;
-        final int height = 800;
+        final int width = IMAGE_SIZE;
+        final int height = IMAGE_SIZE;
         final float density = context.getResources().getDisplayMetrics().density;
 
         Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
