@@ -1,21 +1,30 @@
 package com.github.xckevin927.android.battery.widget.repo
 
 import android.Manifest
-import android.bluetooth.BluetoothAdapter
+import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothGatt
+import android.bluetooth.BluetoothGattCallback
+import android.bluetooth.BluetoothGattCharacteristic
+import android.bluetooth.BluetoothGattService
 import android.bluetooth.BluetoothManager
+import android.bluetooth.BluetoothProfile
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.BatteryManager
 import android.os.PowerManager
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.github.xckevin927.android.battery.widget.App
 import com.github.xckevin927.android.battery.widget.model.BtDeviceState
 import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState
 import com.github.xckevin927.android.battery.widget.utils.ReflectUtil
 import java.lang.Boolean
+import java.lang.String
+import java.util.UUID
+import kotlin.ByteArray
 import kotlin.Int
 import kotlin.apply
 import kotlin.arrayOfNulls
@@ -24,9 +33,16 @@ import kotlin.lazy
 
 object BatteryRepo {
 
+    private const val TAG = "BatteryRepo"
+
+    var BATTERY_SERVICE_UUID: UUID = UUID.fromString("0000180f-0000-1000-8000-00805f9b34fb")
+    var BATTERY_LEVEL_UUID: UUID = UUID.fromString("00002a1b-0000-1000-8000-00805f9b34fb")
+
     private val context by lazy {
         App.getAppContext()
     }
+
+    val leUpdateListener = mutableListOf<((BtDeviceState) -> Unit)>()
 
     fun getBatteryState(): PhoneBatteryState {
         val batteryStatus = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -69,11 +85,85 @@ object BatteryRepo {
         val pairedDevicesCount = pairedDevices.size
         val list: MutableList<BtDeviceState> = ArrayList(pairedDevicesCount)
         for (device in pairedDevices) {
-            val levelBox = ReflectUtil.invoke<Int>(device, "getBatteryLevel", arrayOfNulls(0))
-            val level = levelBox ?: -1
             val connected = Boolean.TRUE == ReflectUtil.invoke(device, "isConnected", arrayOfNulls(0))
-            list.add(BtDeviceState(device, level, connected))
+            val level = if (connected) {
+                val levelBox = ReflectUtil.invoke<Int>(device, "getBatteryLevel", arrayOfNulls(0))
+                levelBox ?: -1
+            } else  {
+                -1
+            }
+            val state = BtDeviceState(device, level, connected)
+            list.add(state)
+
+            if (connected) {
+                tryConnectBleService(device, state)
+            }
         }
         return list
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun tryConnectBleService(device: BluetoothDevice, state: BtDeviceState) {
+        Log.i(TAG, "tryConnectBleService: ${device.name}")
+        device.connectGatt(context, false, object : BluetoothGattCallback() {
+
+            override fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {
+                super.onConnectionStateChange(gatt, status, newState)
+                if (newState == BluetoothProfile.STATE_CONNECTED) {
+                    // successfully connected to the GATT Server
+                    Log.i(TAG, "onConnectionStateChange: STATE_CONNECTED ${device.name}")
+                    readBattery(gatt)
+                    // gatt?.discoverServices()
+                } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                    // disconnected from the GATT Server
+                    Log.i(TAG, "onConnectionStateChange: STATE_DISCONNECTED ${device.name}")
+                }
+            }
+            override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
+                super.onServicesDiscovered(gatt, status)
+                val list = gatt?.services
+                if (status == BluetoothGatt.GATT_SUCCESS) {
+                    Log.i(TAG, "onServicesDiscovered: ${device.name}")
+                    readBattery(gatt)
+                }
+            }
+
+            private fun readBattery(gatt: BluetoothGatt?) {
+                val batteryService: BluetoothGattService? = gatt?.getService(BATTERY_SERVICE_UUID)
+                if (batteryService == null) {
+                    Log.i(TAG, "Battery service not found!")
+                    return
+                }
+                Log.i(TAG, "Battery service found!")
+
+                val batteryLevel = batteryService.getCharacteristic(BATTERY_LEVEL_UUID)
+                if (batteryLevel == null) {
+                    Log.i(TAG, "Battery characteristic not found!")
+                    return
+                }
+                Log.i(TAG, "Battery characteristic found!")
+                Log.i(TAG, String.valueOf(gatt.readCharacteristic(batteryLevel)))
+            }
+
+            override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, value: ByteArray) {
+                super.onCharacteristicChanged(gatt, characteristic, value)
+            }
+
+            override fun onCharacteristicRead(
+                gatt: BluetoothGatt,
+                characteristic: BluetoothGattCharacteristic,
+                value: ByteArray,
+                status: Int
+            ) {
+                super.onCharacteristicRead(gatt, characteristic, value, status)
+                if (status == BluetoothGatt.GATT_SUCCESS) {
+                    val level = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0)
+                    Log.i(TAG, "onCharacteristicRead: $level")
+                    state.batteryLevel = level
+                    leUpdateListener.forEach { it.invoke(state) }
+                }
+            }
+        })
+
     }
 }

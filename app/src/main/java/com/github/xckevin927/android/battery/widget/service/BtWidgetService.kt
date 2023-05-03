@@ -25,10 +25,22 @@ class BtWidgetService : RemoteViewsService() {
 
         private var widgetItems: List<BtDeviceState> = listOf()
 
+        private val listener = object : (BtDeviceState) -> Unit {
+            override fun invoke(p1: BtDeviceState) {
+                WidgetUpdateService.start(context)
+            }
+        }
+
         override fun onCreate() {
+            BatteryRepo.leUpdateListener.add(listener)
             widgetItems = BatteryRepo.getBtDeviceStates().filter {
                 it.isConnected
             }
+        }
+
+
+        override fun onDestroy() {
+            BatteryRepo.leUpdateListener.remove(listener)
         }
 
         override fun onDataSetChanged() {
@@ -37,8 +49,6 @@ class BtWidgetService : RemoteViewsService() {
             }
         }
 
-        override fun onDestroy() {
-        }
 
         override fun getCount(): Int {
             return widgetItems.size
