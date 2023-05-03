@@ -32,6 +32,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.github.xckevin927.android.battery.widget'
 }
 
 dependencies {
