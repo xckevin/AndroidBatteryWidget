@@ -37,6 +37,24 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.AndroidBatteryWidget.Anim">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSplashScreenBackground">@color/icon_bg</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/img_hook</item>
+
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
+        <item name="android:windowReenterTransition">@android:transition/explode</item>
+        <item name="android:windowReturnTransition">@android:transition/fade</item>
+    </style>
+
     <style name="Theme.AndroidBatteryWidget.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AndroidBatteryWidget.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
