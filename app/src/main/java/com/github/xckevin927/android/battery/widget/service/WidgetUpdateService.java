@@ -68,13 +68,13 @@ public class WidgetUpdateService extends Service {
     }
 
     public static void start(Context context, boolean needUpdateWidget) {
-        Intent intent = new Intent(context, WidgetUpdateService.class);
+        Intent intent = new Intent(context.getApplicationContext(), WidgetUpdateService.class);
         if (needUpdateWidget) {
             intent.putExtra(COMMAND_KEY, COMMAND_UPDATE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (updateServiceAidlInterface == null) {
-                context.bindService(intent, new ServiceConnection() {
+                context.getApplicationContext().bindService(intent, new ServiceConnection() {
                     @Override
                     public void onServiceConnected(ComponentName name, IBinder service) {
                         updateServiceAidlInterface = IUpdateServiceAidlInterface.Stub.asInterface(service);
