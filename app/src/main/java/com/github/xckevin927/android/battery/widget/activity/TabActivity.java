@@ -1,6 +1,7 @@
 package com.github.xckevin927.android.battery.widget.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import com.github.xckevin927.android.battery.widget.activity.fragment.phone.Batt
 import com.github.xckevin927.android.battery.widget.databinding.ActivityTabBinding;
 import com.github.xckevin927.android.battery.widget.utils.ShareUtil;
 
+import com.github.xckevin927.android.battery.widget.utils.Utils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -42,6 +44,7 @@ public class TabActivity extends BaseActivity {
         tabModelList.add(new TabModel(BtDeviceFragment.newInstance(2), getString(R.string.tab_bt)));
 
         ViewPager2 viewPager = binding.viewPager;
+        viewPager.setBackgroundColor(Utils.isNightMode(this) ? Color.parseColor("#3f3f3f") : Color.parseColor("#f3f3f3"));
         viewPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
