@@ -36,6 +36,8 @@ android {
     namespace 'com.github.xckevin927.android.battery.widget'
 }
 
+
+
 dependencies {
 
     implementation 'com.google.android.material:material:1.7.0'
@@ -55,6 +57,15 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.3.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
+
+    // work manager
+    def work_version = "2.8.1"
+    // (Java only)
+    implementation("androidx.work:work-runtime:$work_version")
+    // Kotlin + coroutines
+    implementation("androidx.work:work-runtime-ktx:$work_version")
+    // optional - GCMNetworkManager support
+    implementation("androidx.work:work-gcm:$work_version")
 
     // third-part lib
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'

@@ -3,6 +3,7 @@ package com.github.xckevin927.android.battery.widget;
 import android.app.Application;
 import android.content.Context;
 
+import com.github.xckevin927.android.battery.widget.receiver.BatteryWorker;
 import com.github.xckevin927.android.battery.widget.utils.ReflectUtil;
 
 import com.github.xckevin927.android.battery.widget.utils.NotificationUtil;
@@ -20,6 +21,8 @@ public class App extends Application {
         super.onCreate();
         sApp = this;
         NotificationUtil.createNotificationChannel(this);
+
+        BatteryWorker.Companion.start(this);
     }
 
     @Override
