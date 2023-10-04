@@ -72,7 +72,7 @@ public class BatteryWidgetConfigFragment extends Fragment {
     private SwitchMaterial bgProgressSwitch;
     private RangeSlider lineSlider;
 
-    private View wallpaperBgView;
+    private ImageView wallpaperBgView;
 
     private final BroadcastReceiver batteryChangedReceiver = new BroadcastReceiver() {
         @Override
@@ -255,12 +255,12 @@ public class BatteryWidgetConfigFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             WallpaperManager wallpaperManager = (WallpaperManager) App.getAppContext().getSystemService(Context.WALLPAPER_SERVICE);
             Drawable drawable = wallpaperManager.getFastDrawable();
-            wallpaperBgView.setBackground(drawable);
+            wallpaperBgView.setImageDrawable(drawable);
         }
     }
 
     private void removeWallpaper() {
-        wallpaperBgView.setBackground(null);
+        wallpaperBgView.setImageDrawable(null);
     }
 
     private void renderBatteryWidget() {

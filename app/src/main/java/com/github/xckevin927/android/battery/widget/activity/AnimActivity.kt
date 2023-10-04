@@ -18,6 +18,7 @@ class AnimActivity : BaseActivity() {
             setAnimation(R.raw.start_anim)
             repeatCount = 1
             repeatMode = LottieDrawable.REVERSE
+            speed = 2.0f
             addAnimatorListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(animation: Animator) {
                 }

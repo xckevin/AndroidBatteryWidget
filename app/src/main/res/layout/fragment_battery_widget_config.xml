@@ -9,10 +9,15 @@
     tools:context=".activity.MainActivity">
 
     <FrameLayout
-        android:id="@+id/battery_container_wrapper"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/battery_container_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
         <include
             android:id="@+id/battery_container"
