@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.BoringLayout;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextDirectionHeuristics;
@@ -155,10 +156,14 @@ public class Utils {
         textPaint.setTextSize(width / 8F);
 
 
+
         textPaint.setColor(Utils.isNightMode(context) ? Color.WHITE : Color.parseColor("#333333"));
         @SuppressLint("MissingPermission") String name = btDeviceState.getBluetoothDevice().getName();
-        StaticLayout layout;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        Layout layout;
+        BoringLayout.Metrics metrics = BoringLayout.isBoring(name, textPaint);
+        if (metrics != null) {
+            layout = BoringLayout.make(name, textPaint, 0, Layout.Alignment.ALIGN_CENTER, 1f, 0f, metrics, false);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             layout = StaticLayout.Builder.obtain(name, 0, name.length(), textPaint, width * 3 / 4)
                                          .setAlignment(Layout.Alignment.ALIGN_CENTER)
                                          .setMaxLines(1)

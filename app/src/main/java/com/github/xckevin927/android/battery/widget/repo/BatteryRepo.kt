@@ -99,6 +99,21 @@ object BatteryRepo {
                 tryConnectBleService(device, state)
             }
         }
+        list.sortWith(object : Comparator<BtDeviceState> {
+            @SuppressLint("MissingPermission")
+            override fun compare(o1: BtDeviceState, o2: BtDeviceState): Int {
+                if (o1.isConnected && o2.isConnected) {
+                    return o1.bluetoothDevice.name.compareTo(o2.bluetoothDevice.name)
+                }
+                if (!o1.isConnected && !o2.isConnected) {
+                    return o1.bluetoothDevice.name.compareTo(o2.bluetoothDevice.name)
+                }
+                if (o1.isConnected) {
+                    return -1
+                }
+                return 1
+            }
+        })
         return list
     }
 
