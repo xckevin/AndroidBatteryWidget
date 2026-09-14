@@ -1,6 +1,7 @@
 package com.github.xckevin927.android.battery.widget.service
 
 import android.annotation.SuppressLint
+import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,99 +9,89 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.github.xckevin927.android.battery.widget.App
 import com.github.xckevin927.android.battery.widget.R
+import com.github.xckevin927.android.battery.widget.appwidget.WidgetConstants
+import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref
 import com.github.xckevin927.android.battery.widget.model.BtDeviceState
 import com.github.xckevin927.android.battery.widget.repo.BatteryRepo
+import com.github.xckevin927.android.battery.widget.utils.BatteryStatusText
 import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper
-import com.github.xckevin927.android.battery.widget.utils.BtUtil
-import com.github.xckevin927.android.battery.widget.utils.UiUtil
+import com.github.xckevin927.android.battery.widget.utils.DevicePreferences
 import com.github.xckevin927.android.battery.widget.utils.Utils
 
+/**
+ * One factory serves both widget providers. The input list is a cached repository snapshot:
+ * RemoteViews rendering never starts a Bluetooth scan or connection.
+ */
 class BtWidgetService : RemoteViewsService() {
+    companion object {
+        /**
+         * The exact device list rendered by a widget instance. Keeping this selection here
+         * lets the single-device card and the collection renderer make the same decision.
+         */
+        @JvmStatic
+        fun getWidgetItems(context: Context, pref: BatteryWidgetPref): List<BtDeviceState> {
+            val orderedVisible = DevicePreferences.visibleDevices(context, BatteryRepo.getBtSnapshot())
+            if (pref.isShowAllVisibleDevices) return orderedVisible
 
-    override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
-        return BtRemoteViewsFactory(App.getAppContext())
-    }
-
-    class BtRemoteViewsFactory(private val context: Context) : RemoteViewsFactory {
-
-        private var widgetItems: List<BtDeviceState> = listOf()
-
-        private val listener = object : (BtDeviceState) -> Unit {
-            override fun invoke(p1: BtDeviceState) {
-                WidgetUpdateService.start(context)
+            val selected = pref.selectedDeviceAddresses.toSet()
+            return orderedVisible.filter { state ->
+                addressOf(state)?.let(selected::contains) == true
             }
-        }
-
-        override fun onCreate() {
-            BatteryRepo.leUpdateListener.add(listener)
-            widgetItems = BatteryRepo.getBtDeviceStates().filter {
-                it.isConnected
-            }
-        }
-
-
-        override fun onDestroy() {
-            BatteryRepo.leUpdateListener.remove(listener)
-        }
-
-        override fun onDataSetChanged() {
-            widgetItems = BatteryRepo.getBtDeviceStates().filter {
-                it.isConnected
-            }
-        }
-
-
-        override fun getCount(): Int {
-            return widgetItems.size
         }
 
         @SuppressLint("MissingPermission")
-        override fun getViewAt(position: Int): RemoteViews {
-            // Construct a remote views item based on the widget item XML file,
-            // and set the text based on the position.
-            return RemoteViews(context.packageName, R.layout.bt_widget_img).apply {
-
-                try {
-                    val deviceState = widgetItems[position]
-
-                    val b = Utils.generateBtBitmap(context, deviceState, BatteryWidgetPrefHelper.getBatteryWidgetPref(context))
-
-                    setImageViewBitmap(R.id.appwidget_bt_indicator, b)
-
-                    //
-                    // setTextViewText(R.id.name, widgetItems[position].bluetoothDevice.name)
-                    //
-                    // if (deviceState.batteryLevel >= 0) {
-                    //     setTextViewText(R.id.level, "${widgetItems[position].batteryLevel}%")
-                    //     setTextViewCompoundDrawables(R.id.level, R.drawable.ic_battery, 0, 0, 0)
-                    // } else {
-                    //     setTextViewText(R.id.level, "-")
-                    //     setTextViewCompoundDrawables(R.id.level, 0, 0, 0, 0)
-                    // }
-                    // val info = BtUtil.getBtClassDrawableWithDescription(context, deviceState.bluetoothDevice)
-                    // setImageViewBitmap(R.id.img, Bitmap.createBitmap(UiUtil.drawableToBitmap(info.first)))
-                } catch (e: java.lang.Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
-
-        override fun getLoadingView(): RemoteViews? {
-            return null
-        }
-
-        override fun getViewTypeCount(): Int {
-            return 1
-        }
-
-        override fun getItemId(position: Int): Long {
-            return position.toLong()
-        }
-
-        override fun hasStableIds(): Boolean {
-            return true
+        private fun addressOf(state: BtDeviceState): String? = try {
+            state.bluetoothDevice.address
+        } catch (_: SecurityException) {
+            null
         }
     }
 
+    override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
+        val id = intent?.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+            AppWidgetManager.INVALID_APPWIDGET_ID) ?: AppWidgetManager.INVALID_APPWIDGET_ID
+        return BtRemoteViewsFactory(App.getAppContext(), id)
+    }
 
+    class BtRemoteViewsFactory(private val context: Context, private val widgetId: Int) : RemoteViewsFactory {
+        private var widgetItems: List<BtDeviceState> = emptyList()
+        private var pref = BatteryWidgetPref()
+        override fun onCreate() {
+            refreshItems()
+        }
+        override fun onDestroy() = Unit
+        override fun onDataSetChanged() { refreshItems() }
+        private fun refreshItems() {
+            pref = BatteryWidgetPrefHelper.getBatteryWidgetPref(context, widgetId)
+            widgetItems = BtWidgetService.getWidgetItems(context, pref)
+        }
+        override fun getCount() = widgetItems.size
+
+        @SuppressLint("MissingPermission")
+        override fun getViewAt(position: Int): RemoteViews {
+            val state = widgetItems.getOrNull(position) ?: return RemoteViews(context.packageName, R.layout.bt_widget_img)
+            return RemoteViews(context.packageName, R.layout.bt_widget_img).apply {
+                val bitmap: Bitmap = Utils.generateBtBitmap(context, state, pref)
+                setImageViewBitmap(R.id.appwidget_bt_indicator, bitmap)
+                val name = DevicePreferences.displayName(context, state)
+                setContentDescription(R.id.appwidget_bt_indicator, context.getString(
+                    R.string.widget_device_content, name,
+                    BatteryStatusText.bluetooth(context, state) + ". " + BatteryStatusText.freshness(context, state)))
+                val address = addressOf(state)
+                if (address != null) {
+                    setOnClickFillInIntent(R.id.appwidget_bt_indicator, Intent()
+                        .putExtra(WidgetConstants.EXTRA_DEVICE_ADDRESS, address))
+                }
+            }
+        }
+        override fun getLoadingView(): RemoteViews? = null
+        override fun getViewTypeCount() = 1
+        override fun getItemId(position: Int): Long = position.toLong()
+        override fun hasStableIds() = false
+        private fun addressOf(state: BtDeviceState): String? = try {
+            state.bluetoothDevice.address
+        } catch (_: SecurityException) {
+            null
+        }
+    }
 }

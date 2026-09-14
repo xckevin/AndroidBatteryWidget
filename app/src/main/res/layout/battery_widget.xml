@@ -1,14 +1,17 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Widget.AndroidBatteryWidget.AppWidget.Container"
     android:id="@+id/battery_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:theme="@style/Theme.AndroidBatteryWidget.AppWidgetContainer">
 
     <RelativeLayout
+        android:id="@+id/phone_area"
         style="@style/Widget.AndroidBatteryWidget.AppWidget.InnerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <ImageView
             android:id="@+id/appwidget_progress"
@@ -18,4 +21,48 @@
             android:scaleType="centerInside" />
     </RelativeLayout>
 
-</RelativeLayout>
+    <FrameLayout
+        android:id="@+id/widget_devices_container_widget"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
+        <!-- Used only when exactly one device is selected. Its bounds intentionally mirror phone_area. -->
+        <RelativeLayout
+            android:id="@+id/widget_single_device_area"
+            style="@style/Widget.AndroidBatteryWidget.AppWidget.InnerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/widget_single_device_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/single_widget_preview" />
+        </RelativeLayout>
+        <GridView
+            android:id="@+id/widget_devices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="72dp"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dp" />
+        <TextView
+            android:id="@+id/widget_devices_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/widget_no_devices" />
+        <!-- Only shown by the Activity preview; providers always hide it. -->
+        <TextView
+            android:id="@+id/widget_preview_devices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="8dp"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

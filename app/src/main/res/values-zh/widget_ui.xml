@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_ui_preview_title">实时预览</string>
+    <string name="widget_ui_preview_summary">调整时即时更新</string>
+    <string name="widget_ui_content_summary">选择小组件在主屏幕上显示的内容。</string>
+    <string name="widget_ui_action_summary">选择点击手机电量区域后打开的页面。</string>
+    <string name="widget_ui_devices_summary">选择要显示在小组件中的已连接设备。</string>
+    <string name="widget_ui_appearance_title">外观</string>
+    <string name="widget_ui_appearance_summary">调整小组件的背景和圆角。</string>
+    <string name="widget_ui_progress_summary">调整电量进度环的显示方式。</string>
+</resources>

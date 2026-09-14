@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_ui_readiness_title">开启提醒前</string>
+    <string name="settings_ui_notification_access_title">通知权限</string>
+    <string name="settings_ui_monitoring_title">持续监测</string>
+    <string name="settings_ui_phone_section_title">手机充电提醒</string>
+    <string name="settings_ui_bluetooth_section_title">蓝牙设备低电量提醒</string>
+    <string name="settings_ui_quiet_section_title">静音时段</string>
+    <string name="settings_ui_pro_value_title">一次升级，持续使用</string>
+    <string name="settings_ui_pro_included_title">Pro 解锁更多功能</string>
+    <string name="settings_ui_pro_free_title">基础功能免费使用</string>
+    <string name="settings_ui_settings_monitoring_group">持续监测</string>
+    <string name="settings_ui_settings_actions_group">快捷入口</string>
+    <string name="settings_ui_settings_refresh_summary">立即请求刷新小组件。</string>
+    <string name="settings_ui_settings_alerts_summary">配置手机和蓝牙设备电量提醒。</string>
+    <string name="settings_ui_settings_pro_summary">查看 Pro 权益、价格和购买状态。</string>
+</resources>

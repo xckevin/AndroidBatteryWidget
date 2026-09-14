@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "application": {
+    "module": ":app",
+    "module_dir": "app",
+    "application_id": "com.github.xckevin927.android.battery.widget",
+    "variant": "release"
+  },
+  "build": {
+    "bundle": ["./gradlew", ":app:bundleRelease"],
+    "tests": [["./gradlew", ":app:testDebugUnitTest"]],
+    "lint": ["./gradlew", ":app:lintRelease"],
+    "instructions": "README.md"
+  },
+  "paths": {
+    "listings": null,
+    "screenshots": null,
+    "release_notes": "play/release-notes",
+    "artifacts": "play/artifacts"
+  },
+  "locales": {
+    "listings": [],
+    "screenshots": [],
+    "release_notes": ["en-US", "zh-CN"]
+  },
+  "credentials": {
+    "store_password_env": "MY_PLAY_KEY_PWD",
+    "key_alias_env": "MY_PLAY_KEY_ALIAS",
+    "key_password_env": "MY_PLAY_KEY_ALIAS_PWD"
+  },
+  "context_file": "play/README.md"
+}

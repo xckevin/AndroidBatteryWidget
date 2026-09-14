@@ -1,0 +1,34 @@
+<resources>
+    <string name="widget_style_title">Widget content</string>
+    <string name="widget_style_phone">Phone battery only</string>
+    <string name="widget_style_devices">Selected devices only</string>
+    <string name="widget_style_combined">Phone and selected devices (Pro)</string>
+    <string name="widget_pro_required">Phone and selected devices is a Pro feature.</string>
+    <string name="widget_devices_title">Devices in this widget</string>
+    <string name="widget_all_visible_devices">All visible devices</string>
+    <string name="widget_all_visible_devices_summary">Turn off to show only the checked devices. With none checked, the widget is empty.</string>
+    <string name="widget_no_devices_available">No visible Bluetooth devices yet. Connect a device or grant Bluetooth permission, then reopen this screen.</string>
+    <string name="widget_click_title">When the phone area is tapped</string>
+    <string name="widget_click_status">Open monitoring status</string>
+    <string name="widget_click_device">Open the first selected device</string>
+    <string name="widget_device_choice_description">Include %s in this widget</string>
+    <string name="widget_save_and_finish">Save widget</string>
+    <string name="widget_saved">Widget settings saved</string>
+    <string name="widget_pin_not_supported">This launcher cannot add widgets from the app. Touch and hold an empty area of the home screen, then choose Battery Widget.</string>
+    <string name="widget_unknown_battery">Battery level unavailable</string>
+    <string name="widget_phone_content">%1$s. Tap to open monitoring status.</string>
+    <string name="widget_phone_content_device">%1$s. Tap to open %2$s.</string>
+    <string name="widget_selected_device">the selected device</string>
+    <string name="widget_device_content">%1$s. %2$s. Tap to open this device.</string>
+    <string name="widget_no_devices">No selected Bluetooth devices</string>
+    <string name="widget_bt_framework">System reading</string>
+    <string name="widget_bt_read">Read</string>
+    <string name="widget_bt_available">Available</string>
+    <string name="widget_bt_cached">Cached</string>
+    <string name="widget_bt_stale">Outdated</string>
+    <string name="widget_bt_disconnected">Disconnected</string>
+    <string name="widget_bt_unsupported">Not supported</string>
+    <string name="widget_bt_permission">No permission</string>
+    <string name="widget_bt_unknown">Unknown</string>
+    <string name="widget_save_defaults">Save defaults for new widgets</string>
+</resources>

@@ -1,45 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/ui_background"
+    android:clipToPadding="false"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/id_action_fragment_bt"
-        style="@style/TextAppearance.MaterialComponents.Body1"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/common_margin"
-        android:background="#e3e3e3"
-        android:gravity="center_vertical"
-        android:drawablePadding="@dimen/common_margin"
-        android:text="Open Bt Permission"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:drawableEndCompat="@drawable/ic_info_fill"
-        app:drawableTint="@color/light_blue_900" />
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/id_list_fragment_bt"
-        android:name="com.github.xckevin927.android.battery.widget.activity.BtDeviceFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_margin"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        app:layout_constraintTop_toBottomOf="@id/id_action_fragment_bt"
-        tools:context=".activity.fragment.BtDeviceFragment"
-        tools:listitem="@layout/fragment_bt_device" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/id_tips_fragment_bt"
-        style="@style/TextAppearance.MaterialComponents.Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_item"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/id_page_title_fragment_bt"
+                style="@style/TextAppearance.Battery.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/device_ui_title"
+                android:textColor="@color/ui_text"
+                app:layout_constraintEnd_toStartOf="@id/id_refresh_fragment_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/id_refresh_fragment_bt"
+                style="@style/Widget.Battery.Button.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:contentDescription="@string/device_refresh_content_description"
+                android:minWidth="0dp"
+                android:text="@string/device_ui_refresh"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/id_header_title_bottom_fragment_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="id_page_title_fragment_bt,id_refresh_fragment_bt" />
+
+            <TextView
+                android:id="@+id/id_page_description_fragment_bt"
+                style="@style/TextAppearance.Battery.Body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/device_page_description"
+                android:textColor="@color/ui_text_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/id_header_title_bottom_fragment_bt" />
+
+            <TextView
+                android:id="@+id/id_summary_fragment_bt"
+                style="@style/TextAppearance.Battery.Caption"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/ui_text_secondary"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/id_page_description_fragment_bt"
+                tools:text="4 paired · 2 shown in widget"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/id_system_status_fragment_bt"
+            style="@style/TextAppearance.Battery.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/device_ui_status_container"
+            android:drawableEnd="@drawable/ic_info_fill"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:minHeight="72dp"
+            android:padding="20dp"
+            android:textColor="@color/ui_text"
+            android:visibility="gone"
+            app:drawableTint="@color/ui_primary"
+            tools:text="Bluetooth is off"
+            tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/id_action_fragment_bt"
+            style="@style/Widget.Battery.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            tools:text="Open settings"
+            tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/id_list_fragment_bt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            tools:context=".activity.fragment.BtDeviceFragment"
+            tools:listitem="@layout/fragment_bt_device" />
+
+        <LinearLayout
+            android:id="@+id/id_empty_state_fragment_bt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_device_empty_state" />
+
+            <TextView
+                android:id="@+id/id_tips_fragment_bt"
+                style="@style/TextAppearance.Battery.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/ui_text"
+                tools:text="No paired devices yet" />
+
+            <TextView
+                android:id="@+id/id_empty_description_fragment_bt"
+                style="@style/TextAppearance.Battery.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/device_ui_empty_description"
+                android:textColor="@color/ui_text_secondary" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

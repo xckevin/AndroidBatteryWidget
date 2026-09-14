@@ -21,17 +21,10 @@ public class BtActivity extends BaseActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter == null) {
-            // Device doesn't support Bluetooth
-            ToastUtil.toast("your app do not support bluetooth");
-            return;
-        }
-
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.id_content_activity_bt, BtDeviceFragment.newInstance(2))
+                    .replace(R.id.id_content_activity_bt, BtDeviceFragment.newInstance(getResources().getConfiguration().screenWidthDp >= 600 ? 2 : 1))
                     .commit();
         }
     }

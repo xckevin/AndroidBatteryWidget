@@ -29,6 +29,9 @@
     <string name="activity_main_label">配置</string>
 
     <string name="setting_show_in_notification">状态栏显示</string>
+    <string name="continuous_monitoring_summary">显示常驻电量通知，持续监测变化，让桌面小组件更新更及时。可能增加耗电。</string>
+    <string name="stop_monitoring">停止监测</string>
+    <string name="monitoring_battery_changes">正在监测电量变化</string>
 
     <string name="notification_channel_title">当前电量</string>
     <string name="notification_channel_desc">在状态栏中展示电量</string>

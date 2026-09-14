@@ -8,4 +8,9 @@
         <item name="appWidgetRadius">@android:dimen/system_app_widget_background_radius</item>
         <item name="appWidgetInnerRadius">@android:dimen/system_app_widget_inner_radius</item>
     </style>
+
+    <style name="Theme.AndroidBatteryWidget.Anim" parent="Theme.AndroidBatteryWidget.AnimBase">
+        <item name="android:windowSplashScreenBackground">@color/icon_bg</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/img_hook</item>
+    </style>
 </resources>

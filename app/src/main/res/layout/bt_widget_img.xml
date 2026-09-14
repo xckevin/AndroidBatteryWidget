@@ -1,21 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Widget.AndroidBatteryWidget.AppWidget.Container"
+    style="@style/Widget.AndroidBatteryWidget.AppWidget.InnerView"
     android:id="@+id/battery_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.AndroidBatteryWidget.AppWidgetContainer">
 
-    <RelativeLayout
-        style="@style/Widget.AndroidBatteryWidget.AppWidget.InnerView"
+    <!--
+        A collection item already sits in the provider's padded container. Using the container
+        style here added a second appWidgetPadding and shrank a lone Bluetooth bitmap relative
+        to the phone bitmap. This is deliberately the same inner-card level as phone_area.
+    -->
+    <ImageView
+        android:id="@+id/appwidget_bt_indicator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/appwidget_bt_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/single_widget_preview"
-            android:scaleType="centerInside" />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:src="@drawable/single_widget_preview"
+        android:scaleType="centerInside" />
 
 </RelativeLayout>

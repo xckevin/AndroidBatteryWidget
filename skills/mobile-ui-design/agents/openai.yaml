@@ -1,0 +1,4 @@
+interface:
+  display_name: "移动端 UI 设计"
+  short_description: "跨项目优化移动端页面层级、主题与组件，并完成真实状态和设备验收"
+  default_prompt: "使用 $mobile-ui-design 优化当前项目的移动端 UI，沿用品牌与技术栈，完成主题、页面状态和适配验证。"

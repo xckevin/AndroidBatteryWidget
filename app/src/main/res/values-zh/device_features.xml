@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="device_page_description">选择要在小组件中显示的已配对设备，并可修改名称和排列顺序。</string>
+    <string name="device_refresh">立即刷新</string>
+    <string name="device_refresh_content_description">刷新蓝牙设备状态</string>
+    <string name="device_list_summary">已配对 %1$d 台 · 小组件显示 %2$d 台</string>
+    <string name="device_no_bluetooth_hardware">此设备不支持蓝牙。</string>
+    <string name="device_bluetooth_off">蓝牙已关闭。开启后可读取已配对设备。</string>
+    <string name="device_enable_bluetooth">开启蓝牙</string>
+    <string name="device_permission_rationale">需要蓝牙权限才能显示已配对设备的电量状态。</string>
+    <string name="device_permission_denied">蓝牙权限已被拒绝。允许权限后可恢复设备状态。</string>
+    <string name="device_permission_permanently_denied">蓝牙权限已被禁止，请在应用设置中允许“附近的设备”。</string>
+    <string name="device_allow_permission">允许蓝牙权限</string>
+    <string name="device_open_app_settings">打开应用设置</string>
+    <string name="device_no_paired_devices">未找到已配对的蓝牙设备。</string>
+    <string name="device_open_bluetooth_settings">打开蓝牙设置</string>
+    <string name="device_unknown_name">蓝牙设备</string>
+    <string name="device_show_in_widget">在小组件中显示</string>
+    <string name="device_rename">修改名称</string>
+    <string name="device_move_up">上移</string>
+    <string name="device_move_down">下移</string>
+    <string name="device_alias_title">设备名称</string>
+    <string name="device_alias_hint">自定义名称</string>
+    <string name="device_alias_help">留空将使用蓝牙设备名称。</string>
+    <string name="device_alias_save">保存</string>
+    <string name="device_alias_cancel">取消</string>
+    <string name="device_source_framework">系统读数</string>
+    <string name="device_source_gatt">蓝牙直接读取</string>
+    <string name="device_source_unknown">电量来源不可用</string>
+    <string name="device_type_and_source">%1$s · %2$s</string>
+    <string name="device_widget_target_unavailable">小组件对应的设备当前不可用。</string>
+</resources>

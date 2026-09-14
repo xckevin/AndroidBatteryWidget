@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pro_title">Battery Widget Pro</string>
+    <string name="pro_intro">一次购买即可解锁组合小组件和电量提醒。</string>
+    <string name="pro_unlocks_heading">Pro 包含</string>
+    <string name="pro_combined_widget_title">组合电量小组件</string>
+    <string name="pro_combined_widget_summary">在同一个小组件中同时显示手机和所选蓝牙设备的电量。</string>
+    <string name="pro_alerts_feature_title">电量提醒</string>
+    <string name="pro_alerts_feature_summary">接收手机充电目标和所选蓝牙设备低电量通知。</string>
+    <string name="pro_free_heading">永久免费</string>
+    <string name="pro_free_summary">持续电量监测、仅手机小组件和仅蓝牙设备小组件无需 Pro 也可继续使用。</string>
+    <string name="pro_purchase_terms">一次性购买，无订阅。可在登录同一 Google Play 账号的设备上恢复购买。</string>
+    <string name="pro_purchase_status_heading">购买状态</string>
+    <string name="pro_status_checking">正在连接 Google Play…</string>
+    <string name="pro_status_ready">可以解锁。</string>
+    <string name="pro_status_unlocked">此设备已解锁 Pro。</string>
+    <string name="pro_status_unlocked_offline">Pro 可继续离线使用。当前无法同步 Google Play 账号，可通过“恢复购买”重试。</string>
+    <string name="pro_status_pending">购买仍在处理中。Google Play 确认付款前，Pro 不会启用。</string>
+    <string name="pro_status_restored">购买已恢复。</string>
+    <string name="pro_status_no_purchase_found">当前 Google Play 账号下未找到有效购买。</string>
+    <string name="pro_status_billing_unavailable">此设备当前无法使用 Google Play 结算服务。</string>
+    <string name="pro_status_network_error">无法连接 Google Play。请检查网络后再次恢复购买。</string>
+    <string name="pro_status_product_unavailable">此购买项目目前不可用。</string>
+    <string name="pro_status_purchase_failed">购买未完成，可以重试。</string>
+    <string name="pro_status_verification_failed">Google Play 无法验证购买，Pro 仍保持锁定；请尝试恢复购买。</string>
+    <string name="pro_status_acknowledgement_failed">Google Play 尚未确认订单。请通过“恢复购买”重试确认，避免订单被自动退款。</string>
+    <string name="pro_status_storage_failed">本次已解锁 Pro，但购买记录暂未保存。请释放存储空间并恢复购买，以便下次重启后仍可离线使用。</string>
+    <string name="pro_status_unavailable">暂时无法取得购买信息，请尝试恢复购买。</string>
+    <string name="pro_price_value">一次性价格：%1$s</string>
+    <string name="pro_price_unavailable">连接 Google Play 后会显示本地化价格。</string>
+    <string name="pro_buy_for_price">以 %1$s 解锁</string>
+    <string name="pro_buy">解锁 Pro</string>
+    <string name="pro_restore">恢复购买</string>
+
+    <string name="alert_pro_locked_title">电量提醒需要 Pro</string>
+    <string name="alert_pro_locked_message">你可以预览和配置全部选项；解锁 Pro 后才能保存已开启的提醒。</string>
+    <string name="alert_pro_pending_message">购买仍在处理中。当前草稿会保留，但 Google Play 确认付款前无法启用提醒。</string>
+    <string name="alert_pro_unlocked_title">电量提醒已解锁</string>
+    <string name="alert_pro_unlocked_message">Pro 已启用，可以保存并使用手机和蓝牙设备电量提醒。</string>
+    <string name="alert_pro_view">查看 Pro</string>
+    <string name="alert_pro_required">需要先解锁 Battery Widget Pro 才能保存已开启的提醒；当前草稿已保留。</string>
+</resources>

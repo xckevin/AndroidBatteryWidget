@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     android:theme="@style/Theme.AndroidBatteryWidget.AppWidgetContainer">
 
-    <StackView
+    <GridView
         android:id="@+id/id_grid_bt_widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:columnWidth="72dp"
         android:gravity="center"
-        android:numColumns="2"
-        android:loopViews="true" />
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth" />
 
     <RelativeLayout
         android:id="@+id/empty_view"

@@ -1,0 +1,11 @@
+<resources>
+    <string name="ui_overview_title">Battery overview</string>
+    <string name="ui_phone_label">THIS PHONE</string>
+    <string name="ui_tools_title">Make it yours</string>
+    <string name="ui_widget_title">Home screen widgets</string>
+    <string name="ui_widget_summary">Choose your style and add a widget</string>
+    <string name="ui_devices_title">Bluetooth devices</string>
+    <string name="ui_alerts_summary">Charge targets and low-battery reminders</string>
+    <string name="ui_monitor_settings">Monitoring settings</string>
+    <string name="ui_settings">Settings</string>
+</resources>

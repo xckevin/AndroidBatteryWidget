@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alerts_title">Battery alerts</string>
+    <string name="alert_notification_channel_name">Battery alerts</string>
+    <string name="alert_notification_channel_description">Charge targets and low Bluetooth battery alerts</string>
+    <string name="alert_phone_notification_title">Charge target reached</string>
+    <string name="alert_phone_notification_content">Phone battery is %1$d%% (target %2$d%%).</string>
+    <string name="alert_bluetooth_notification_title">Low battery: %1$s</string>
+    <string name="alert_bluetooth_notification_content">%1$d%% remaining (alert threshold %2$d%%).</string>
+
+    <string name="alert_notifications_enabled">Notifications are available.</string>
+    <string name="alert_notifications_disabled">Notifications are off. Alerts remain pending until you restore access.</string>
+    <string name="alert_open_notification_settings">Restore notification access</string>
+    <string name="alert_notification_required_title">Notification access needed</string>
+    <string name="alert_notification_required_message">Your alert settings were saved, but Android cannot show alerts. Restore notification access to receive them.</string>
+    <string name="alert_not_now">Not now</string>
+    <string name="alert_monitoring_enabled">Continuous monitoring is on. Alerts are checked with live battery refreshes. Alerts do not start another background service.</string>
+    <string name="alert_monitoring_disabled">Continuous monitoring is off, so reminders may be delayed. Turn it on to respond to battery changes more promptly.</string>
+    <string name="alert_open_monitoring_settings">Open monitoring settings</string>
+
+    <string name="alert_phone_switch">Phone charge alert</string>
+    <string name="alert_phone_summary">Notify once per charging cycle when the phone reaches the selected level.</string>
+    <string name="alert_threshold_80">80%</string>
+    <string name="alert_threshold_100">100%</string>
+    <string name="alert_threshold_custom">Custom level</string>
+    <string name="alert_custom_threshold_hint">Custom level (1–100%)</string>
+
+    <string name="alert_bluetooth_switch">Bluetooth low-battery alerts</string>
+    <string name="alert_bluetooth_summary">Only fresh readings from currently connected selected devices can trigger an alert.</string>
+    <string name="alert_bluetooth_threshold_hint">Low-battery threshold (1–95%)</string>
+    <string name="alert_select_devices">Devices to watch</string>
+    <string name="alert_no_bluetooth_devices">No saved Bluetooth devices are available yet. Connect a device and refresh its battery reading first.</string>
+    <string name="alert_select_at_least_one_device">Select at least one Bluetooth device.</string>
+    <string name="alert_device_level">%1$s · %2$d%%</string>
+    <string name="alert_device_status">%1$s · %2$s</string>
+    <string name="alert_status_available">Available</string>
+    <string name="alert_status_cached">Cached</string>
+    <string name="alert_status_stale">Stale</string>
+    <string name="alert_status_disconnected">Disconnected</string>
+    <string name="alert_status_permission_denied">Bluetooth permission required</string>
+    <string name="alert_status_unsupported">Battery level unsupported</string>
+    <string name="alert_status_unknown">No current reading</string>
+
+    <string name="alert_quiet_hours_switch">Quiet hours</string>
+    <string name="alert_quiet_hours_summary">Pause alerts during this local-time window. Overnight windows are supported; pending alerts are checked on the next refresh.</string>
+    <string name="alert_quiet_start">Starts %1$s</string>
+    <string name="alert_quiet_end">Ends %1$s</string>
+    <string name="alert_quiet_start_title">Quiet hours start</string>
+    <string name="alert_quiet_end_title">Quiet hours end</string>
+
+    <string name="alert_save">Save alerts</string>
+    <string name="alert_saved">Alert settings saved</string>
+    <string name="alert_save_failed">Could not save alert settings</string>
+    <string name="alert_invalid_threshold">Enter a level from 1 to %1$d.</string>
+</resources>

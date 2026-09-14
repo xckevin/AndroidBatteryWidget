@@ -1,7 +1,6 @@
 package com.github.xckevin927.android.battery.widget.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,16 +13,19 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.xckevin927.android.battery.widget.R;
 import com.github.xckevin927.android.battery.widget.activity.fragment.BtDeviceFragment;
+import com.github.xckevin927.android.battery.widget.activity.fragment.MonitorFragment;
 import com.github.xckevin927.android.battery.widget.activity.fragment.phone.BatteryWidgetConfigFragment;
+import com.github.xckevin927.android.battery.widget.appwidget.WidgetConstants;
 import com.github.xckevin927.android.battery.widget.databinding.ActivityTabBinding;
+import com.github.xckevin927.android.battery.widget.repo.BatteryRepo;
 import com.github.xckevin927.android.battery.widget.utils.ShareUtil;
 
-import com.github.xckevin927.android.battery.widget.utils.Utils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class TabActivity extends BaseActivity {
 
@@ -37,14 +39,20 @@ public class TabActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        binding.toolbar.setTitle(R.string.app_name);
+        boolean landscape = getResources().getConfiguration().orientation
+                == android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+        binding.toolbar.setTitle(landscape ? "" : getString(R.string.app_name));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(!landscape);
+        }
 
         List<TabModel> tabModelList = new ArrayList<>(4);
+        tabModelList.add(new TabModel(new MonitorFragment(), getString(R.string.tab_monitor)));
         tabModelList.add(new TabModel(BatteryWidgetConfigFragment.newInstance(), getString(R.string.tab_widget)));
-        tabModelList.add(new TabModel(BtDeviceFragment.newInstance(2), getString(R.string.tab_bt)));
+        tabModelList.add(new TabModel(BtDeviceFragment.newInstance(getResources().getConfiguration().screenWidthDp >= 600 ? 2 : 1), getString(R.string.tab_bt)));
 
         ViewPager2 viewPager = binding.viewPager;
-        viewPager.setBackgroundColor(Utils.isNightMode(this) ? Color.parseColor("#3f3f3f") : Color.parseColor("#f3f3f3"));
+        viewPager.setBackgroundColor(androidx.core.content.ContextCompat.getColor(this, R.color.ui_background));
         viewPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
@@ -60,6 +68,29 @@ public class TabActivity extends BaseActivity {
         TabLayout tabs = binding.tabs;
 
         new TabLayoutMediator(tabs, viewPager, (tab, position) -> tab.setText(tabModelList.get(position).title)).attach();
+        if (savedInstanceState == null) showTabForIntent(getIntent());
+    }
+
+    public void showTab(String name) {
+        int index = WidgetConstants.TAB_BLUETOOTH.equals(name) ? 2 : "widget".equals(name) ? 1 : 0;
+        binding.viewPager.setCurrentItem(index, true);
+    }
+
+    @Override protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        showTabForIntent(intent);
+        if (intent.hasExtra(WidgetConstants.EXTRA_DEVICE_ADDRESS)) {
+            BatteryRepo.refresh("widget_open_device");
+        }
+    }
+
+    /** A device target is sufficient to route correctly if an older widget omitted open_tab. */
+    private void showTabForIntent(Intent intent) {
+        String tab = intent.hasExtra(WidgetConstants.EXTRA_DEVICE_ADDRESS)
+                ? WidgetConstants.TAB_BLUETOOTH
+                : intent.getStringExtra(WidgetConstants.EXTRA_OPEN_TAB);
+        showTab(tab);
     }
 
     @Override

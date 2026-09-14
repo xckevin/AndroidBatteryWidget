@@ -1,0 +1,34 @@
+<resources>
+    <string name="widget_style_title">小组件内容</string>
+    <string name="widget_style_phone">仅手机电量</string>
+    <string name="widget_style_devices">仅选中的设备</string>
+    <string name="widget_style_combined">手机和选中的设备（Pro）</string>
+    <string name="widget_pro_required">手机和选中的设备需要 Pro。</string>
+    <string name="widget_devices_title">此小组件中的设备</string>
+    <string name="widget_all_visible_devices">所有可见设备</string>
+    <string name="widget_all_visible_devices_summary">关闭后仅显示勾选的设备；未勾选时小组件为空。</string>
+    <string name="widget_no_devices_available">暂时没有可显示的蓝牙设备。请连接设备或授予蓝牙权限后重新打开此页面。</string>
+    <string name="widget_click_title">点击手机区域时</string>
+    <string name="widget_click_status">打开监测状态</string>
+    <string name="widget_click_device">打开第一个选中的设备</string>
+    <string name="widget_device_choice_description">在此小组件中显示 %s</string>
+    <string name="widget_save_and_finish">保存小组件</string>
+    <string name="widget_saved">小组件设置已保存</string>
+    <string name="widget_pin_not_supported">当前桌面不支持从应用添加小组件。请在桌面空白处长按，然后选择电池小挂件。</string>
+    <string name="widget_unknown_battery">电量暂不可用</string>
+    <string name="widget_phone_content">%1$s。点击打开监测状态。</string>
+    <string name="widget_phone_content_device">%1$s。点击打开 %2$s。</string>
+    <string name="widget_selected_device">选中的设备</string>
+    <string name="widget_device_content">%1$s。%2$s。点击打开此设备。</string>
+    <string name="widget_no_devices">没有选中的蓝牙设备</string>
+    <string name="widget_bt_framework">系统读数</string>
+    <string name="widget_bt_read">已读取</string>
+    <string name="widget_bt_available">可用</string>
+    <string name="widget_bt_cached">缓存</string>
+    <string name="widget_bt_stale">已过期</string>
+    <string name="widget_bt_disconnected">已断开</string>
+    <string name="widget_bt_unsupported">不支持</string>
+    <string name="widget_bt_permission">无权限</string>
+    <string name="widget_bt_unknown">未知</string>
+    <string name="widget_save_defaults">保存新组件的默认配置</string>
+</resources>

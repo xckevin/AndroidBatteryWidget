@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="device_ui_title">蓝牙设备</string>
+    <string name="device_ui_refresh">刷新</string>
+    <string name="device_ui_empty_title">尚未配对设备</string>
+    <string name="device_ui_empty_description">请先在系统蓝牙设置中配对设备，然后返回此处选择要显示在小组件中的设备。</string>
+    <string name="device_ui_manage_label">设备选项</string>
+</resources>

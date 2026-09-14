@@ -1,5 +1,6 @@
 *.iml
 .gradle
+/.kotlin/
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -8,6 +9,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/compiler.xml
+/.idea/kotlinc.xml
 /.idea/gradle.xml
 /.idea/vcs.xml
 /.idea/misc.xml
@@ -17,3 +19,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/play/artifacts/
+/app/release/

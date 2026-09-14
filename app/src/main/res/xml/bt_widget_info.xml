@@ -8,7 +8,9 @@
     android:previewImage="@drawable/bt_widget_preview"
     android:previewLayout="@layout/bt_widget_item"
     android:resizeMode="horizontal|vertical"
+    android:configure="com.github.xckevin927.android.battery.widget.activity.MainActivity"
     android:targetCellWidth="1"
     android:targetCellHeight="1"
-    android:updatePeriodMillis="300000"
+    android:updatePeriodMillis="0"
+    android:widgetFeatures="reconfigurable"
     android:widgetCategory="home_screen|keyguard" />

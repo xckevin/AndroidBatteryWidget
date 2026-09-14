@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_ui_preview_title">Live preview</string>
+    <string name="widget_ui_preview_summary">Updates as you adjust</string>
+    <string name="widget_ui_content_summary">Choose what the widget shows on your home screen.</string>
+    <string name="widget_ui_action_summary">Choose what tapping the phone battery opens.</string>
+    <string name="widget_ui_devices_summary">Select which connected devices appear in the widget.</string>
+    <string name="widget_ui_appearance_title">Appearance</string>
+    <string name="widget_ui_appearance_summary">Fine-tune the widget background and corners.</string>
+    <string name="widget_ui_progress_summary">Adjust the battery progress ring.</string>
+</resources>

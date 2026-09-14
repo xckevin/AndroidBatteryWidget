@@ -1,6 +1,5 @@
 package com.github.xckevin927.android.battery.widget.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -27,8 +26,6 @@ import com.github.xckevin927.android.battery.widget.model.BatteryWidgetPref;
 import com.github.xckevin927.android.battery.widget.model.BtDeviceState;
 import com.github.xckevin927.android.battery.widget.model.PhoneBatteryState;
 import com.github.xckevin927.android.battery.widget.R;
-
-import androidx.core.content.ContextCompat;
 
 public class Utils {
 
@@ -62,7 +59,8 @@ public class Utils {
 
 
     public static Bitmap generateBatteryBitmap(Context context, PhoneBatteryState batteryState, BatteryWidgetPref widgetPref) {
-        final boolean isCharging = batteryState.isAcCharge() || batteryState.isUsbCharge() || batteryState.isWirelessCharge();
+        // Being connected to power is not synonymous with actively charging.
+        final boolean isCharging = batteryState.isCharging();
 
         final int width = IMAGE_SIZE;
         final int height = IMAGE_SIZE;
@@ -101,10 +99,13 @@ public class Utils {
         }
 
         int battery = batteryState.getLevel();
+        boolean batteryKnown = battery >= 0 && battery <= 100;
         if (isCharging) {
             paint.setColor(Color.parseColor("#19bd3e"));
         } else if (batteryState.isInPowerSaveMode()) {
             paint.setColor(Color.parseColor("#fdf35f"));
+        } else if (!batteryKnown) {
+            paint.setColor(Color.parseColor("#8a8a8a"));
         } else if (battery >= 20) {
             paint.setColor(Color.parseColor("#19bd3e"));
         } else if (battery >= 5) {
@@ -113,17 +114,22 @@ public class Utils {
             paint.setColor(Color.parseColor("#e0260e"));
         }
 
-        canvas.drawArc(rect, -90F, 360F * battery / 100F, false, paint);
+        if (batteryKnown) {
+            canvas.drawArc(rect, -90F, 360F * battery / 100F, false, paint);
+        }
 
         if (isCharging || batteryState.isInPowerSaveMode()) {
             canvas.drawBitmap(indicatorIcon, width / 2F - indicatorIcon.getWidth() / 2F, 0, paint);
         }
 
-//        paint.setColor(Color.YELLOW);
-        final String batteryText = battery + "%";
-        float batteryTextWidth = paint.measureText(batteryText);
-        float batteryTextHeight = paint.getTextSize();
-        canvas.drawText(batteryText, width / 2F - batteryTextWidth / 2, height / 2F + batteryTextHeight / 2, paint);
+        // The full unknown-state explanation is in the widget content description; this bitmap needs a compact mark.
+        final String batteryText = batteryKnown ? battery + "%" : "—";
+        // Ring thickness must not turn the number into thick, overlapping outlines.
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextAlign(Paint.Align.CENTER);
+        Paint.FontMetrics metrics = paint.getFontMetrics();
+        canvas.drawText(batteryText, width / 2F,
+                height / 2F - (metrics.ascent + metrics.descent) / 2F, paint);
         return b;
     }
 
@@ -146,71 +152,82 @@ public class Utils {
         }
 
         Pair<Drawable, String> info = BtUtil.getBtClassDrawableWithDescription(context, btDeviceState.getBluetoothDevice());
-
-        Rect rect = new Rect(width / 4, height / 8, width * 3 / 4, height * 5 / 8);
+        Rect rect = new Rect(width / 4, height / 12, width * 3 / 4, height * 5 / 12);
 
         canvas.drawBitmap(UiUtil.drawableToBitmap(info.first), null, rect, paint);
 
         TextPaint textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
-        textPaint.setTextSize(width / 8F);
-
-
-
+        final int textWidth = width * 5 / 6;
         textPaint.setColor(Utils.isNightMode(context) ? Color.WHITE : Color.parseColor("#333333"));
-        @SuppressLint("MissingPermission") String name = btDeviceState.getBluetoothDevice().getName();
-        Layout layout;
-        BoringLayout.Metrics metrics = BoringLayout.isBoring(name, textPaint);
-        if (metrics != null) {
-            layout = BoringLayout.make(name, textPaint, 0, Layout.Alignment.ALIGN_CENTER, 1f, 0f, metrics, false);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            layout = StaticLayout.Builder.obtain(name, 0, name.length(), textPaint, width * 3 / 4)
-                                         .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                                         .setMaxLines(1)
-                                         .build();
-        } else {
-            layout = new StaticLayout(name, textPaint, width * 3 /4, Layout.Alignment.ALIGN_CENTER, 1f, 0f, false);
-        }
+        textPaint.setTextSize(width / 9F);
+        String name = DevicePreferences.displayName(context, btDeviceState);
+        Layout layout = singleLineLayout(name, textPaint, textWidth);
         canvas.save();
-        canvas.translate((width - layout.getWidth()) / 2f, height * 5 / 8f);
+        canvas.translate((width - layout.getWidth()) / 2f, height * 6 / 12f);
         layout.draw(canvas);
         canvas.restore();
 
         final int nameTextHeight = layout.getHeight();
-
-        final String batteryText = btDeviceState.getBatteryLevel() > 0 ? btDeviceState.getBatteryLevel() + "%" : "-";
-        textPaint.setColor(Color.parseColor("#19bd3e"));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            layout = StaticLayout.Builder.obtain(batteryText, 0, batteryText.length(), textPaint, width * 2 / 4)
-                                         .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                                         .setMaxLines(1)
-                                         .build();
-        } else {
-            layout = new StaticLayout(batteryText, textPaint, width * 2 /4, Layout.Alignment.ALIGN_CENTER, 1f, 0f, false);
-        }
+        final String status = btDeviceState.getStatus();
+        final boolean usableLevel = btDeviceState.isConnected()
+                && btDeviceState.getBatteryLevel() >= 0 && btDeviceState.getBatteryLevel() <= 100
+                && ("available".equals(status) || "cached".equals(status) || "stale".equals(status));
+        final String batteryText = usableLevel ? btDeviceState.getBatteryLevel() + "%" : "—";
+        textPaint.setTextSize(width / 8F);
+        textPaint.setColor("available".equals(status) ? Color.parseColor("#19bd3e")
+                : "cached".equals(status) ? Color.parseColor("#d58b00")
+                : "stale".equals(status) ? Color.parseColor("#c66a00")
+                : Color.parseColor("#777777"));
+        layout = singleLineLayout(batteryText, textPaint, textWidth);
         canvas.save();
-        canvas.translate((width - layout.getWidth()) / 2f, height * 5 / 8f + nameTextHeight);
+        final float batteryTop = height * 6 / 12f + nameTextHeight;
+        canvas.translate((width - layout.getWidth()) / 2f, batteryTop);
         layout.draw(canvas);
         canvas.restore();
 
-
-        Bitmap indicatorIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_battery);
-        if (indicatorIcon == null) {
-            indicatorIcon = UiUtil.drawableToBitmap(ContextCompat.getDrawable(context, R.drawable.ic_battery));
-        }
-        final int indicatorIconHeight = indicatorIcon.getHeight();
-        final int indicatorIconWidth = indicatorIcon.getWidth();
-
-        final int destHeight = layout.getHeight();
-        final int destWidth = (int) (indicatorIconWidth / (indicatorIconHeight * 1.0f / destHeight));
-
-        Rect destRect = new Rect();
-        new RectF((width - layout.getWidth() ) / 2f - destWidth/2F, height * 5 / 8f + nameTextHeight,
-                  (width - layout.getWidth()) / 2f + destWidth/2F, height * 5 / 8f + nameTextHeight + destHeight)
-                .round(destRect);
-
-        canvas.drawBitmap(indicatorIcon, null, destRect, paint);
+        textPaint.setTextSize(width / 15F);
+        textPaint.setColor(Utils.isNightMode(context) ? Color.LTGRAY : Color.parseColor("#555555"));
+        Layout statusLayout = singleLineLayout(btVisualStatus(context, btDeviceState), textPaint, textWidth);
+        canvas.save();
+        canvas.translate((width - statusLayout.getWidth()) / 2f, batteryTop + layout.getHeight());
+        statusLayout.draw(canvas);
+        canvas.restore();
 
         return b;
+    }
+
+    /** Ellipsize before constructing BoringLayout: its width must never be zero in a bitmap widget. */
+    private static Layout singleLineLayout(String value, TextPaint paint, int availableWidth) {
+        CharSequence text = TextUtils.ellipsize(value == null ? "" : value, paint, availableWidth,
+                TextUtils.TruncateAt.END);
+        BoringLayout.Metrics metrics = BoringLayout.isBoring(text, paint);
+        if (metrics != null) {
+            return BoringLayout.make(text, paint, availableWidth, Layout.Alignment.ALIGN_CENTER,
+                    1f, 0f, metrics, false);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return StaticLayout.Builder.obtain(text, 0, text.length(), paint, availableWidth)
+                    .setAlignment(Layout.Alignment.ALIGN_CENTER)
+                    .setEllipsize(TextUtils.TruncateAt.END)
+                    .setMaxLines(1)
+                    .build();
+        }
+        return new StaticLayout(text, paint, availableWidth, Layout.Alignment.ALIGN_CENTER, 1f, 0f, false);
+    }
+
+    private static String btVisualStatus(Context context, BtDeviceState state) {
+        String status = state.getStatus();
+        if ("cached".equals(status)) return context.getString(R.string.widget_bt_cached);
+        if ("stale".equals(status)) return context.getString(R.string.widget_bt_stale);
+        if ("disconnected".equals(status)) return context.getString(R.string.widget_bt_disconnected);
+        if ("unsupported".equals(status)) return context.getString(R.string.widget_bt_unsupported);
+        if ("permission_denied".equals(status)) return context.getString(R.string.widget_bt_permission);
+        if ("available".equals(status)) {
+            if ("framework".equals(state.getSource())) return context.getString(R.string.widget_bt_framework);
+            if ("gatt".equals(state.getSource())) return context.getString(R.string.widget_bt_read);
+            return context.getString(R.string.widget_bt_available);
+        }
+        return context.getString(R.string.widget_bt_unknown);
     }
 }

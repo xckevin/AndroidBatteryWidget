@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.github.xckevin927.android.battery.widget.service.WidgetUpdateService
+import com.github.xckevin927.android.battery.widget.utils.BatteryWidgetPrefHelper
 
 abstract class BaseWidgetProvider(val type: Int) : AppWidgetProvider() {
 
@@ -30,7 +31,34 @@ abstract class BaseWidgetProvider(val type: Int) : AppWidgetProvider() {
 
     override fun onDeleted(context: Context?, appWidgetIds: IntArray?) {
         super.onDeleted(context, appWidgetIds)
+        if (context != null) {
+            appWidgetIds?.forEach { BatteryWidgetPrefHelper.removeBatteryWidgetPref(context, it) }
+        }
         WidgetUpdateService.start(context)
+    }
+
+    override fun onAppWidgetOptionsChanged(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        newOptions: android.os.Bundle
+    ) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
+        // Re-evaluate the compact/combined layout after a launcher resize.
+        updateAppWidget(context, appWidgetManager, appWidgetId)
+    }
+
+    override fun onRestored(
+        context: Context,
+        oldWidgetIds: IntArray,
+        newWidgetIds: IntArray
+    ) {
+        super.onRestored(context, oldWidgetIds, newWidgetIds)
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        oldWidgetIds.zip(newWidgetIds).forEach { (oldId, newId) ->
+            BatteryWidgetPrefHelper.restoreBatteryWidgetPref(context, oldId, newId)
+            updateAppWidget(context, appWidgetManager, newId)
+        }
     }
 
     override fun onEnabled(context: Context) {

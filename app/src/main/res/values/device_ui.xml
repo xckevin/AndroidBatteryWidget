@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="device_ui_title">Bluetooth devices</string>
+    <string name="device_ui_refresh">Refresh</string>
+    <string name="device_ui_empty_title">No paired devices yet</string>
+    <string name="device_ui_empty_description">Pair a device in Bluetooth settings, then return here to choose what appears in your widget.</string>
+    <string name="device_ui_manage_label">DEVICE OPTIONS</string>
+</resources>

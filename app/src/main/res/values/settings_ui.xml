@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_ui_readiness_title">Before you enable alerts</string>
+    <string name="settings_ui_notification_access_title">Notification access</string>
+    <string name="settings_ui_monitoring_title">Monitoring</string>
+    <string name="settings_ui_phone_section_title">Phone charge alert</string>
+    <string name="settings_ui_bluetooth_section_title">Bluetooth low-battery alerts</string>
+    <string name="settings_ui_quiet_section_title">Quiet hours</string>
+    <string name="settings_ui_pro_value_title">Upgrade once, keep it</string>
+    <string name="settings_ui_pro_included_title">Unlock more with Pro</string>
+    <string name="settings_ui_pro_free_title">Keep using the essentials for free</string>
+    <string name="settings_ui_settings_monitoring_group">Continuous monitoring</string>
+    <string name="settings_ui_settings_actions_group">Shortcuts</string>
+    <string name="settings_ui_settings_refresh_summary">Request a fresh widget update now.</string>
+    <string name="settings_ui_settings_alerts_summary">Choose phone and Bluetooth battery reminders.</string>
+    <string name="settings_ui_settings_pro_summary">See Pro features, price, and purchase status.</string>
+</resources>

@@ -42,7 +42,13 @@ public class BtUtil {
 
     public static Pair<Drawable, String> getBtClassDrawableWithDescription(Context context,
                                                                            BluetoothDevice cachedDevice) {
-        @SuppressLint("MissingPermission") BluetoothClass btClass = cachedDevice.getBluetoothClass();
+        BluetoothClass btClass = null;
+        try {
+            @SuppressLint("MissingPermission") BluetoothClass value = cachedDevice.getBluetoothClass();
+            btClass = value;
+        } catch (SecurityException ignored) {
+            // Permission may be revoked while a cached widget item is being rendered.
+        }
         if (btClass != null) {
             switch (btClass.getMajorDeviceClass()) {
                 case BluetoothClass.Device.Major.COMPUTER:

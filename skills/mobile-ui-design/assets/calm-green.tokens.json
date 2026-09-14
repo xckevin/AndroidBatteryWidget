@@ -1,0 +1,37 @@
+{
+  "name": "calm-green",
+  "version": 1,
+  "usage": "Optional starting palette. Preserve an existing brand; recheck actual color pairs after adaptation. Not a framework-specific token format.",
+  "color": {
+    "light": {
+      "background": "#F3F7F5",
+      "surface": "#FFFFFF",
+      "primary": "#147D64",
+      "onPrimary": "#FFFFFF",
+      "primaryContainer": "#E1F2EA",
+      "onPrimaryContainer": "#142C27",
+      "text": "#142C27",
+      "textSecondary": "#536B65",
+      "outlineDecorative": "#DCE6E2",
+      "outlineControl": "#6B8078"
+    },
+    "dark": {
+      "background": "#101A17",
+      "surface": "#182722",
+      "primary": "#80D9B4",
+      "onPrimary": "#063728",
+      "primaryContainer": "#213F32",
+      "onPrimaryContainer": "#E6F0E9",
+      "text": "#E6F0E9",
+      "textSecondary": "#ADC2B7",
+      "outlineDecorative": "#30453B",
+      "outlineControl": "#809B8D"
+    }
+  },
+  "space": {"tight": 4, "related": 8, "component": 12, "content": 16, "section": 24, "major": 32},
+  "radius": {"control": 14, "card": 20},
+  "dimensionsNote": "Map spacing/radius to platform logical units. Sizes are adjustable; controls must still meet platform touch targets and text scaling needs.",
+  "androidTypographySp": {"title": 26, "toolbar": 20, "section": 18, "body": 15, "caption": 13},
+  "typographyNote": "Use scalable platform text styles. Do not copy Android sp values as fixed iOS font sizes.",
+  "stateNote": "Use project/platform semantic error, warning, success and component interaction-state colors; this palette does not define them."
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="pro_status" type="id" />
+    <item name="pro_price" type="id" />
+    <item name="pro_purchase" type="id" />
+    <item name="pro_restore" type="id" />
+    <item name="pro_alerts_banner" type="id" />
+    <item name="pro_alerts_status" type="id" />
+    <item name="pro_alerts_upgrade" type="id" />
+
+    <string name="pro_title">Battery Widget Pro</string>
+    <string name="pro_intro">Unlock combined widgets and battery alerts with one purchase.</string>
+    <string name="pro_unlocks_heading">Included with Pro</string>
+    <string name="pro_combined_widget_title">Combined battery widgets</string>
+    <string name="pro_combined_widget_summary">Show the phone and selected Bluetooth batteries together in one widget.</string>
+    <string name="pro_alerts_feature_title">Battery alerts</string>
+    <string name="pro_alerts_feature_summary">Get phone charge-target and selected Bluetooth low-battery notifications.</string>
+    <string name="pro_free_heading">Always free</string>
+    <string name="pro_free_summary">Continuous battery monitoring, phone-only widgets, and Bluetooth-only widgets remain available without Pro.</string>
+    <string name="pro_purchase_terms">One-time purchase. No subscription. Restore it on devices signed in to the same Google Play account.</string>
+    <string name="pro_purchase_status_heading">Purchase status</string>
+    <string name="pro_status_checking">Checking Google Play…</string>
+    <string name="pro_status_ready">Ready to unlock.</string>
+    <string name="pro_status_unlocked">Pro is unlocked on this device.</string>
+    <string name="pro_status_unlocked_offline">Pro remains unlocked offline. Google Play account sync is unavailable right now; Restore purchase can retry it.</string>
+    <string name="pro_status_pending">Your purchase is pending. Pro stays locked until Google Play confirms payment.</string>
+    <string name="pro_status_restored">Your purchase has been restored.</string>
+    <string name="pro_status_no_purchase_found">No active purchase was found for the current Google Play account.</string>
+    <string name="pro_status_billing_unavailable">Google Play billing is unavailable on this device.</string>
+    <string name="pro_status_network_error">Couldn’t reach Google Play. Check your connection, then try restoring again.</string>
+    <string name="pro_status_product_unavailable">This purchase is not available right now.</string>
+    <string name="pro_status_purchase_failed">The purchase didn’t complete. You can try again.</string>
+    <string name="pro_status_verification_failed">Google Play could not verify the purchase. Pro remains locked; try restoring it.</string>
+    <string name="pro_status_acknowledgement_failed">Google Play has not confirmed the order yet. Use Restore purchase to retry confirmation and avoid an automatic refund.</string>
+    <string name="pro_status_storage_failed">Pro is unlocked for this session, but the purchase record could not be saved. Free device storage, then restore the purchase so Pro can work offline after the next restart.</string>
+    <string name="pro_status_unavailable">Purchase details are unavailable. Try restoring your purchase.</string>
+    <string name="pro_price_value">One-time price: %1$s</string>
+    <string name="pro_price_unavailable">The localized price will appear when Google Play connects.</string>
+    <string name="pro_buy_for_price">Unlock for %1$s</string>
+    <string name="pro_buy">Unlock Pro</string>
+    <string name="pro_restore">Restore purchase</string>
+
+    <string name="alert_pro_locked_title">Battery alerts require Pro</string>
+    <string name="alert_pro_locked_message">You can configure every option as a preview. Unlock Pro before saving enabled alerts.</string>
+    <string name="alert_pro_pending_message">Your purchase is pending. Your draft stays here, but alerts cannot be enabled until Google Play confirms payment.</string>
+    <string name="alert_pro_unlocked_title">Battery alerts unlocked</string>
+    <string name="alert_pro_unlocked_message">Pro is active. You can save and use phone and Bluetooth battery alerts.</string>
+    <string name="alert_pro_view">View Pro</string>
+    <string name="alert_pro_required">Unlock Battery Widget Pro to save enabled alerts. Your draft has been kept.</string>
+</resources>

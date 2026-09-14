@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alerts_title">电量提醒</string>
+    <string name="alert_notification_channel_name">电量提醒</string>
+    <string name="alert_notification_channel_description">手机充电目标和蓝牙设备低电量提醒</string>
+    <string name="alert_phone_notification_title">已达到充电目标</string>
+    <string name="alert_phone_notification_content">手机当前电量 %1$d%%，目标为 %2$d%%。</string>
+    <string name="alert_bluetooth_notification_title">%1$s 电量较低</string>
+    <string name="alert_bluetooth_notification_content">剩余 %1$d%%，提醒阈值为 %2$d%%。</string>
+
+    <string name="alert_notifications_enabled">通知功能可用。</string>
+    <string name="alert_notifications_disabled">通知已关闭。恢复权限前，满足条件的提醒会保持待发送。</string>
+    <string name="alert_open_notification_settings">恢复通知权限</string>
+    <string name="alert_notification_required_title">需要通知权限</string>
+    <string name="alert_notification_required_message">提醒设置已保存，但 Android 当前无法显示通知。请恢复通知权限以接收提醒。</string>
+    <string name="alert_not_now">暂不处理</string>
+    <string name="alert_monitoring_enabled">持续监测已开启。提醒会随实时电量刷新进行检查；提醒功能本身不会另启常驻后台服务。</string>
+    <string name="alert_monitoring_disabled">持续监测未开启，提醒可能延迟。开启后可更及时地响应电量变化。</string>
+    <string name="alert_open_monitoring_settings">打开监测设置</string>
+
+    <string name="alert_phone_switch">手机充电提醒</string>
+    <string name="alert_phone_summary">每个充电周期在手机达到所选电量时提醒一次。</string>
+    <string name="alert_threshold_80">80%</string>
+    <string name="alert_threshold_100">100%</string>
+    <string name="alert_threshold_custom">自选电量</string>
+    <string name="alert_custom_threshold_hint">自选电量（1–100%）</string>
+
+    <string name="alert_bluetooth_switch">蓝牙设备低电量提醒</string>
+    <string name="alert_bluetooth_summary">仅当前已连接且读数新鲜的所选设备会触发提醒。</string>
+    <string name="alert_bluetooth_threshold_hint">低电量阈值（1–95%）</string>
+    <string name="alert_select_devices">选择要关注的设备</string>
+    <string name="alert_no_bluetooth_devices">暂无可选的已保存蓝牙设备。请先连接设备并刷新其电量。</string>
+    <string name="alert_select_at_least_one_device">请至少选择一个蓝牙设备。</string>
+    <string name="alert_device_level">%1$s · %2$d%%</string>
+    <string name="alert_device_status">%1$s · %2$s</string>
+    <string name="alert_status_available">当前读数可用</string>
+    <string name="alert_status_cached">缓存读数</string>
+    <string name="alert_status_stale">读数已过期</string>
+    <string name="alert_status_disconnected">未连接</string>
+    <string name="alert_status_permission_denied">需要蓝牙权限</string>
+    <string name="alert_status_unsupported">不支持读取电量</string>
+    <string name="alert_status_unknown">暂无当前读数</string>
+
+    <string name="alert_quiet_hours_switch">静音时段</string>
+    <string name="alert_quiet_hours_summary">在该本地时间段暂停提醒，支持跨午夜。待发送提醒会在下次刷新时检查。</string>
+    <string name="alert_quiet_start">开始 %1$s</string>
+    <string name="alert_quiet_end">结束 %1$s</string>
+    <string name="alert_quiet_start_title">静音开始时间</string>
+    <string name="alert_quiet_end_title">静音结束时间</string>
+
+    <string name="alert_save">保存提醒</string>
+    <string name="alert_saved">提醒设置已保存</string>
+    <string name="alert_save_failed">无法保存提醒设置</string>
+    <string name="alert_invalid_threshold">请输入 1 到 %1$d 之间的电量。</string>
+</resources>

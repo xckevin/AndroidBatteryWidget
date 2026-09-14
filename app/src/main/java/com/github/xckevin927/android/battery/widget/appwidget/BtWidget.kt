@@ -17,12 +17,17 @@ class BtWidget : BaseWidgetProvider(WidgetConstants.TYPE_BT_BATTERY) {
     override fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
         val intent = Intent(context, BtWidgetService::class.java).apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            putExtra(WidgetConstants.EXTRA_TYPE, WidgetConstants.TYPE_BT_BATTERY)
             data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
         }
         val views = RemoteViews(context.packageName, R.layout.bt_widget)
         views.setRemoteAdapter(R.id.id_grid_bt_widget, intent)
 
         views.setEmptyView(R.id.id_grid_bt_widget, R.id.empty_view)
+        views.setPendingIntentTemplate(
+            R.id.id_grid_bt_widget,
+            BatteryWidget.deviceTemplate(context, appWidgetId)
+        )
 
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.id_grid_bt_widget)
         appWidgetManager.updateAppWidget(appWidgetId, views)

@@ -29,6 +29,9 @@
     <string name="activity_main_label">Configuration</string>
 
     <string name="setting_show_in_notification">Show In Status Bar</string>
+    <string name="continuous_monitoring_summary">Keep a battery notification and monitor changes continuously for faster widget updates. May use more battery.</string>
+    <string name="stop_monitoring">Stop monitoring</string>
+    <string name="monitoring_battery_changes">Monitoring battery changes</string>
 
     <string name="notification_channel_title">Battery Indicator</string>
     <string name="notification_channel_desc">Show Battery Indicator In Status Bar</string>

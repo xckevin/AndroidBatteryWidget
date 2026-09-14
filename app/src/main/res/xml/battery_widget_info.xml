@@ -11,5 +11,6 @@
     android:configure="com.github.xckevin927.android.battery.widget.activity.MainActivity"
     android:targetCellWidth="1"
     android:targetCellHeight="1"
-    android:updatePeriodMillis="300000"
+    android:updatePeriodMillis="0"
+    android:widgetFeatures="reconfigurable"
     android:widgetCategory="home_screen|keyguard" />

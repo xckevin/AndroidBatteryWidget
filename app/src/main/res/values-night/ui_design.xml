@@ -1,0 +1,10 @@
+<resources>
+    <color name="ui_background">#101A17</color>
+    <color name="ui_surface">#182722</color>
+    <color name="ui_primary">#80D9B4</color>
+    <color name="ui_on_primary">#063728</color>
+    <color name="ui_primary_container">#213F32</color>
+    <color name="ui_text">#E6F0E9</color>
+    <color name="ui_text_secondary">#ADC2B7</color>
+    <color name="ui_outline">#30453B</color>
+</resources>

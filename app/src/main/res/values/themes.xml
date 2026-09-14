@@ -1,25 +1,30 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.AndroidBatteryWidget" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/light_blue_500</item>
-        <item name="colorPrimaryVariant">@color/light_blue_900</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/light_blue_500</item>
-        <item name="colorSecondaryVariant">@color/light_blue_800</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/light_blue_600</item>
-        <!-- Customize your theme here. -->
-
-
+    <style name="Theme.AndroidBatteryWidget" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimary">@color/ui_primary</item>
+        <item name="colorPrimaryVariant">@color/ui_primary</item>
+        <item name="colorOnPrimary">@color/ui_on_primary</item>
+        <item name="colorSecondary">@color/ui_primary</item>
+        <item name="colorOnSecondary">@color/ui_on_primary</item>
+        <item name="colorSurface">@color/ui_surface</item>
+        <item name="colorOnSurface">@color/ui_text</item>
+        <item name="android:colorBackground">@color/ui_background</item>
+        <item name="android:windowBackground">@color/ui_background</item>
+        <item name="android:textColorPrimary">@color/ui_text</item>
+        <item name="android:textColorSecondary">@color/ui_text_secondary</item>
+        <item name="android:statusBarColor">@color/ui_background</item>
+        <item name="android:navigationBarColor">@color/ui_background</item>
+        <item name="colorControlNormal">@color/ui_text_secondary</item>
+        <item name="actionBarStyle">@style/Widget.Battery.ActionBar</item>
+        <item name="materialCardViewStyle">@style/Widget.Battery.Card</item>
+        <item name="materialButtonStyle">@style/Widget.Battery.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.Battery.Button.Outlined</item>
+        <item name="borderlessButtonStyle">@style/Widget.Battery.Button.Text</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Battery.Body</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Battery.Caption</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Battery.Section</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@android:transition/fade</item>
         <item name="android:windowExitTransition">@android:transition/fade</item>
-        <item name="android:windowReenterTransition">@android:transition/fade</item>
-        <item name="android:windowReturnTransition">@android:transition/fade</item>
     </style>
 
     <style name="Theme.AndroidBatteryWidget.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
@@ -44,7 +49,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.AndroidBatteryWidget.Anim">
+    <style name="Theme.AndroidBatteryWidget.AnimBase" parent="Theme.AndroidBatteryWidget">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
@@ -52,14 +57,13 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSplashScreenBackground">@color/icon_bg</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/img_hook</item>
-
     </style>
 
-    <style name="Theme.AndroidBatteryWidget.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.AndroidBatteryWidget.Anim" parent="Theme.AndroidBatteryWidget.AnimBase" />
 
-    <style name="Theme.AndroidBatteryWidget.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.AndroidBatteryWidget.AppBarOverlay" parent="ThemeOverlay.AppCompat" />
+
+    <style name="Theme.AndroidBatteryWidget.PopupOverlay" parent="ThemeOverlay.AppCompat" />
 
     <style name="ToolBarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:itemBackground">#fff</item>

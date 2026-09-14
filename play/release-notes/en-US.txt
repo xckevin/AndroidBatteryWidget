@@ -1,0 +1,6 @@
+Refreshed design with clearer battery and monitoring information.
+New optional one-time Pro upgrade for combined widgets and battery alerts.
+Improved Bluetooth connection detection and battery refresh reliability.
+Balanced phone and accessory sizes in combined widgets.
+Tap an accessory in a widget to open its details.
+Improved widget setup and Android 16 compatibility.

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:clipToPadding="false">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="20dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Battery.Title"
+            android:text="@string/ui_overview_title" android:layout_marginBottom="16dp" />
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Battery.Card" android:layout_width="match_parent"
+            android:layout_height="wrap_content" app:cardBackgroundColor="@color/ui_primary_container"
+            app:strokeWidth="0dp" android:layout_marginBottom="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="24dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Battery.Caption"
+                    android:textColor="@color/ui_text" android:text="@string/ui_phone_label" />
+                <TextView android:id="@+id/overview_level" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textSize="64sp"
+                    android:fontFamily="sans-serif-medium" android:textColor="@color/ui_text"
+                    android:includeFontPadding="false" android:layout_marginTop="8dp"
+                    android:accessibilityLiveRegion="polite" />
+                <TextView android:id="@+id/overview_phone_status" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.Battery.Body"
+                    android:textColor="@color/ui_text" android:layout_marginTop="4dp" />
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/overview_battery_progress" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_marginTop="20dp"
+                    android:importantForAccessibility="no" app:trackThickness="6dp" app:trackCornerRadius="3dp"
+                    app:trackColor="@color/ui_surface" app:indicatorColor="@color/ui_primary" />
+                <TextView android:id="@+id/overview_checked" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.Battery.Caption"
+                    android:layout_marginTop="12dp" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/overview_refresh"
+                    style="@style/Widget.Battery.Button.Outlined" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_marginTop="12dp"
+                    android:text="@string/monitor_refresh" app:strokeColor="@color/ui_primary"
+                    app:icon="@drawable/ic_ui_refresh" app:iconGravity="textStart" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Battery.Card"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="20dp">
+                <TextView android:id="@+id/overview_monitor_status" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.Battery.Section" />
+                <TextView android:id="@+id/overview_monitor_explanation" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.Battery.Body"
+                    android:lineSpacingExtra="3dp" android:layout_marginTop="8dp" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/overview_monitor_settings"
+                    style="@style/Widget.Battery.Button.Text" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_gravity="end"
+                    android:layout_marginTop="4dp" android:text="@string/ui_monitor_settings" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Battery.Section" android:text="@string/ui_tools_title"
+            android:layout_marginTop="24dp" android:layout_marginBottom="12dp" />
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Battery.Card"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <LinearLayout android:id="@+id/overview_widgets" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:minHeight="88dp" android:gravity="center_vertical"
+                    android:padding="16dp" android:background="?attr/selectableItemBackground"
+                    android:clickable="true" android:focusable="true" android:orientation="horizontal">
+                    <ImageView android:layout_width="44dp" android:layout_height="44dp" android:padding="11dp"
+                        android:src="@drawable/ic_ui_widgets" android:background="@drawable/ui_icon_background"
+                        android:importantForAccessibility="no" android:contentDescription="@null" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:layout_marginStart="16dp" android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.Battery.Section" android:textSize="16sp"
+                            android:text="@string/ui_widget_title" />
+                        <TextView android:text="@string/ui_widget_summary"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp" android:textAppearance="@style/TextAppearance.Battery.Caption" />
+                    </LinearLayout>
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                        android:src="@drawable/ic_ui_chevron" android:contentDescription="@null" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:layout_marginStart="76dp" android:layout_marginEnd="20dp" android:background="@color/ui_outline" />
+                <LinearLayout android:id="@+id/overview_devices" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:minHeight="88dp" android:gravity="center_vertical"
+                    android:padding="16dp" android:background="?attr/selectableItemBackground"
+                    android:clickable="true" android:focusable="true" android:orientation="horizontal">
+                    <ImageView android:layout_width="44dp" android:layout_height="44dp" android:padding="11dp"
+                        android:src="@drawable/ic_ui_bluetooth" android:background="@drawable/ui_icon_background"
+                        android:importantForAccessibility="no" android:contentDescription="@null" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:layout_marginStart="16dp" android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.Battery.Section" android:textSize="16sp"
+                            android:text="@string/ui_devices_title" />
+                        <TextView android:id="@+id/overview_bluetooth"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp" android:textAppearance="@style/TextAppearance.Battery.Caption" />
+                    </LinearLayout>
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                        android:src="@drawable/ic_ui_chevron" android:contentDescription="@null" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:layout_marginStart="76dp" android:layout_marginEnd="20dp" android:background="@color/ui_outline" />
+                <LinearLayout android:id="@+id/overview_alerts" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:minHeight="88dp" android:gravity="center_vertical"
+                    android:padding="16dp" android:background="?attr/selectableItemBackground"
+                    android:clickable="true" android:focusable="true" android:orientation="horizontal">
+                    <ImageView android:layout_width="44dp" android:layout_height="44dp" android:padding="11dp"
+                        android:src="@drawable/ic_ui_bell" android:background="@drawable/ui_icon_background"
+                        android:importantForAccessibility="no" android:contentDescription="@null" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:layout_marginStart="16dp" android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.Battery.Section" android:textSize="16sp"
+                            android:text="@string/monitor_alerts" />
+                        <TextView android:text="@string/ui_alerts_summary"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp" android:textAppearance="@style/TextAppearance.Battery.Caption" />
+                    </LinearLayout>
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp"
+                        android:src="@drawable/ic_ui_chevron" android:contentDescription="@null" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton android:id="@+id/overview_diagnostics"
+            style="@style/Widget.Battery.Button.Text" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="@string/monitor_diagnostics" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Battery.Caption" android:gravity="center"
+            android:text="@string/monitor_diagnostics_summary" android:layout_marginBottom="8dp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

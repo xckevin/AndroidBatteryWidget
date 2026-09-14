@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.airbnb.lottie.animation.keyframe.BaseKeyframeAnimation.AnimationListener
@@ -12,6 +13,11 @@ import com.github.xckevin927.android.battery.widget.R
 class AnimActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        findViewById<View>(android.R.id.content).also { content ->
+            content.setPadding(0, 0, 0, 0)
+            ViewCompat.setOnApplyWindowInsetsListener(content) { _, windowInsets -> windowInsets }
+            ViewCompat.requestApplyInsets(content)
+        }
         setContentView(R.layout.activity_anim)
         val lottieView:LottieAnimationView = findViewById(R.id.lottie_view)
         lottieView.apply {

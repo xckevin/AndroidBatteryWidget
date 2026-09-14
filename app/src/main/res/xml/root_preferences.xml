@@ -1,9 +1,18 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/app_name">
+    <PreferenceCategory
+        app:key="settings_ui_monitoring_group"
+        app:title="@string/settings_ui_settings_monitoring_group">
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_ui_monitoring"
+            app:iconSpaceReserved="true"
             app:key="setting_show_in_notification"
-            app:title="@string/setting_show_in_notification" />
+            app:title="@string/setting_show_in_notification"
+            app:summary="@string/continuous_monitoring_summary" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="settings_ui_actions_group"
+        app:title="@string/settings_ui_settings_actions_group" />
 
 </PreferenceScreen>
